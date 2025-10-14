@@ -14,6 +14,7 @@ app.use(
   }),
 );
 
+
 // Agrego al header del archivo configuraciones para que acepte conexiones CORS
 app.use(function (req, res, next) {
 
