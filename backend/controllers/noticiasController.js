@@ -28,7 +28,7 @@ const crearnoticia = async (req, res) => {
 const obtenernoticia = async (req, res) => {
   const noticiaId = req.params.id;
   try {
-    const noticia = await noticia.findByPk(noticiaId);
+    const noticia = await Noticia.findByPk(noticiaId);
     if (!noticia) {
       return res.status(404).json({ error: "Noticia no encontrada" });
     }
@@ -44,7 +44,7 @@ const actualizarnoticia = async (req, res) => {
   const noticiaId = req.params.id;
   const Nombre_noticia = req.body;
   try {
-    const noticia = await noticia.findByPk(noticiaId);
+    const noticia = await Noticia.findByPk(noticiaId);
     if (!noticia) {
       return res.status(404).json({ error: "Noticia no encontrada" });
     }
@@ -62,7 +62,7 @@ const actualizarnoticia = async (req, res) => {
 const eliminarnoticia = async (req, res) => {
   const noticiaId = req.params.id;
   try {
-    const noticia = await noticia.findByPk(noticiaId);
+    const noticia = await Noticia.findByPk(noticiaId);
     if (!noticia) {
       return res.status(404).json({ error: "Noticia no encontrada" });
     }

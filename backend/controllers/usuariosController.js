@@ -15,7 +15,7 @@ const listarusuarios = async (req, res) => {
 const obtenerusuario = async (req, res) => {
   const usuarioId = req.params.id;
   try {
-    const usuario = await usuario.findByPk(usuarioId);
+    const usuario = await Usuario.findByPk(usuarioId);
     if (!usuario) {
       return res.status(404).json({ error: "Categoría no encontrada" });
     }
@@ -31,7 +31,7 @@ const actualizarusuario = async (req, res) => {
   const usuarioId = req.params.id;
   const Nombre_usuario = req.body;
   try {
-    const usuario = await usuario.findByPk(usuarioId);
+    const usuario = await Usuario.findByPk(usuarioId);
     if (!usuario) {
       return res.status(404).json({ error: "Categoría no encontrada" });
     }
@@ -49,7 +49,7 @@ const actualizarusuario = async (req, res) => {
 const eliminarusuario = async (req, res) => {
   const usuarioId = req.params.id;
   try {
-    const usuario = await usuario.findByPk(usuarioId);
+    const usuario = await Usuario.findByPk(usuarioId);
     if (!usuario) {
       return res.status(404).json({ error: "Categoría no encontrada" });
     }

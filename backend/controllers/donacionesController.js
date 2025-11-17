@@ -28,7 +28,7 @@ const creardonacion = async (req, res) => {
 const obtenerdonacion = async (req, res) => {
   const donacionId = req.params.id;
   try {
-    const donacion = await donacion.findByPk(donacionId);
+    const donacion = await Donacion.findByPk(donacionId);
     if (!donacion) {
       return res.status(404).json({ error: "Donacion no encontrada" });
     }
@@ -44,7 +44,7 @@ const actualizardonacion = async (req, res) => {
   const donacionId = req.params.id;
   const Nombre_donacion = req.body;
   try {
-    const donacion = await donacion.findByPk(donacionId);
+    const donacion = await Donacion.findByPk(donacionId);
     if (!donacion) {
       return res.status(404).json({ error: "Donacion no encontrada" });
     }
@@ -62,7 +62,7 @@ const actualizardonacion = async (req, res) => {
 const eliminardonacion = async (req, res) => {
   const donacionId = req.params.id;
   try {
-    const donacion = await donacion.findByPk(donacionId);
+    const donacion = await Donacion.findByPk(donacionId);
     if (!donacion) {
       return res.status(404).json({ error: "Donacion no encontrada" });
     }

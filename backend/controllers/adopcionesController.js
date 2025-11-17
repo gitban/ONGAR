@@ -28,7 +28,7 @@ const crearadopcion = async (req, res) => {
 const obteneradopcion = async (req, res) => {
   const adopcionId = req.params.id;
   try {
-    const adopcion = await adopcion.findByPk(adopcionId);
+    const adopcion = await Adopcion.findByPk(adopcionId);
     if (!adopcion) {
       return res.status(404).json({ error: "Adopcion no encontrada" });
     }
@@ -44,7 +44,7 @@ const actualizaradopcion = async (req, res) => {
   const adopcionId = req.params.id;
   const Nombre_adopcion = req.body;
   try {
-    const adopcion = await adopcion.findByPk(adopcionId);
+    const adopcion = await Adopcion.findByPk(adopcionId);
     if (!adopcion) {
       return res.status(404).json({ error: "Adopcion no encontrada" });
     }
@@ -62,7 +62,7 @@ const actualizaradopcion = async (req, res) => {
 const eliminaradopcion = async (req, res) => {
   const adopcionId = req.params.id;
   try {
-    const adopcion = await adopcion.findByPk(adopcionId);
+    const adopcion = await Adopcion.findByPk(adopcionId);
     if (!adopcion) {
       return res.status(404).json({ error: "Adopcion no encontrada" });
     }

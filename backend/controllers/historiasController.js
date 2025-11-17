@@ -28,7 +28,7 @@ const crearhistoria = async (req, res) => {
 const obtenerhistoria = async (req, res) => {
   const historiaId = req.params.id;
   try {
-    const historia = await historia.findByPk(historiaId);
+    const historia = await Historia.findByPk(historiaId);
     if (!historia) {
       return res.status(404).json({ error: "Historia no encontrada" });
     }
@@ -44,7 +44,7 @@ const actualizarhistoria = async (req, res) => {
   const historiaId = req.params.id;
   const Nombre_historia = req.body;
   try {
-    const historia = await historia.findByPk(historiaId);
+    const historia = await Historia.findByPk(historiaId);
     if (!historia) {
       return res.status(404).json({ error: "Historia no encontrada" });
     }
@@ -62,7 +62,7 @@ const actualizarhistoria = async (req, res) => {
 const eliminarhistoria = async (req, res) => {
   const historiaId = req.params.id;
   try {
-    const historia = await historia.findByPk(historiaId);
+    const historia = await Historia.findByPk(historiaId);
     if (!historia) {
       return res.status(404).json({ error: "Historia no encontrada" });
     }

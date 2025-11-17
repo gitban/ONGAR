@@ -44,7 +44,7 @@ const actualizaranimal = async (req, res) => {
   const animalId = req.params.id;
   const Nombre_animal = req.body;
   try {
-    const animal = await animal.findByPk(animalId);
+    const animal = await Animal.findByPk(animalId);
     if (!animal) {
       return res.status(404).json({ error: "Animal no encontrada" });
     }
@@ -62,7 +62,7 @@ const actualizaranimal = async (req, res) => {
 const eliminaranimal = async (req, res) => {
   const animalId = req.params.id;
   try {
-    const animal = await animal.findByPk(animalId);
+    const animal = await Animal.findByPk(animalId);
     if (!animal) {
       return res.status(404).json({ error: "Animal no encontrada" });
     }
