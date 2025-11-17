@@ -10,22 +10,41 @@ const Adopcion = sequelize.define(
       autoincrement: true,
       alowNull: false,
     },
-    id_perro:{type: DataTypes.INTEGER},
-    nombre: { type: DataTypes.STRING(150), alowNull: false },
-    apellido: { type: DataTypes.STRING(100), alowNull: false },
-    email: { type: DataTypes.STRING(100), alowNull: false, 
-      unique: { args: true, msg:"El email ya existe!!"} ,
-      validate: {
-        isEmail: true // Valida que el email tiene un formato válido
-       }},
-    telefono: { type: DataTypes.STRING(11)},
-    direccion_calle: { type: DataTypes.STRING(100), alowNull: false },
-    direccion_nro: { type: DataTypes.INTEGER, alowNull: false },
-    direccion_ciudad: { type: DataTypes.STRING(50), alowNull: false },
-    direccion_provincia: { type: DataTypes.STRING(50), alowNull: false },
+     id_animal: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoincrement: true,
+      alowNull: false,
+    },
+    solicitante_id:{
+      type: DataTypes.INTEGER
+    },
+    nombre_solicitante: {
+      type: DataTypes.STRING(150),
+      alowNull: false 
+    },
+    contacto: { 
+      type: DataTypes.STRING(150),
+      alowNull: false 
+    },
+    experiencia_mascotas: {
+       type: DataTypes.TEXT,
+       alowNull: false, 
+    },
+    estado: {
+      type: DataTypes.STRING(20)
+    },
+    fecha_envio: { 
+      type: DataTypes.TIME,
+      alowNull: false 
+    },
+    observaciones: {
+      type: DataTypes.TEXT,
+      alowNull: false 
+    },
   },
   {
-    tableName: 'adopciones',
+    tableName: 'solicitudes_adopcion',
     timestamps: false,
   }
 )

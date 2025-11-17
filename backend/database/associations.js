@@ -1,11 +1,19 @@
-﻿const Miembro = require('../models/miembros');
+﻿const Usuario = require('../models/usuarios');
+const Animal = require('../models/animales');
 const Adopcion = require('../models/adopciones');
-
-// Configurar relaciones
-// Categoria.hasMany(Contenido, { foreignKey: 'Categoria_ID' });
-// Contenido.belongsTo(Categoria, { foreignKey: 'Categoria_ID' });
+const Donacion = require('../models/donaciones');
+const Noticia = require('../models/noticias');
+const Historia = require('../models/historias');
+const User = require('../models/login');
+const Administrador = require('../models/administradores');
 
 module.exports = {
-    Miembro,
+    User,
+    Administrador,
+    Usuario,
+    Animal,
     Adopcion,
+    Donacion,
+    Noticia,
+    Historia
 };
