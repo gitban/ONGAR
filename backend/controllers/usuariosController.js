@@ -11,6 +11,18 @@ const listarusuarios = async (req, res) => {
   }
 };
 
+// Controlador para crear una nueva usuario
+const crearusuario = async (req, res) => {
+  const Nombre_usuario = req.body;
+  try {
+    await Animal.create(Nombre_usuario);
+    res.status(201).json(Nombre_usuario);
+  } catch (error) {
+    console.error("Error al crear el usuario:", error);
+    res.status(500).json({ error: "Error al crear el usuario" });
+  }
+};
+
 // Controlador para obtener una usuario por su ID
 const obtenerusuario = async (req, res) => {
   const usuarioId = req.params.id;
@@ -62,6 +74,7 @@ const eliminarusuario = async (req, res) => {
 };
 
 module.exports = {
+    crearusuario,
     listarusuarios,
     obtenerusuario,
     actualizarusuario,

@@ -1,6 +1,7 @@
 ﻿require('dotenv').config();
 
 const express = require('express');
+const serverless = require('serverless-http');
 const bodyParser = require('body-parser');
 const app = express();
 const session = require('express-session');
@@ -84,7 +85,10 @@ app.use('/api', DonacionesRouter);
 app.use('/api', HistoriasRouter);
 app.use('/api', NoticiasRouter);
 
-// Arrancamos el servidor
-app.listen(PORT, () => {
-  console.log(`Servidor escuchando en el puerto ${PORT}`);
-});
+// Exporta el handler para Lambda
+module.exports.handler = serverless(app);
+
+// Arrancamos el servidor en caso de uso local, sin AWS-Lambda
+// app.listen(PORT, () => {
+//   console.log(`Servidor escuchando en el puerto ${PORT}`);
+// });
