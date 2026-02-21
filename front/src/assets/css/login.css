@@ -1,0 +1,125 @@
+:root {
+  --orange-primary: #FE6416;  
+  --orange-secondary: #EC3215;
+  --bg-pink: #FDF2F0;
+  --font-heading: 'DynaPuff', cursive;
+  --font-body: 'Montserrat', sans-serif;
+}
+
+/* Fondo de toda la pantalla */
+.login-page {
+  background-color: var(--bg-pink);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Centrado vertical y horizontal */
+  font-family: var(--font-body);
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+/* Contenedor del Logo */
+.login-logo-wrapper {
+  margin-bottom: 30px;
+  width: 120px;
+  height: 120px;
+  background-color: white;
+  border-radius: 50%; /* Círculo perfecto */
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid transparent;
+}
+
+.login-logo-wrapper img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.login-logo-wrapper:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* Tarjeta de Login */
+.login-card {
+  background-color: var(--orange-secondary);
+  width: 100%;
+  padding: 40px 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(236, 50, 21, 0.2);
+  text-align: center;
+  color: white;
+}
+
+.login-card h2 {
+  font-family: var(--font-heading);
+  font-size: 28px;
+  margin-bottom: 30px;
+  font-weight: 700;
+}
+
+/* Inputs */
+.login-input-group {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.login-input-group label {
+  display: block; /* Oculto visualmente en el diseño, pero bueno para accesibilidad */
+  font-size: 14px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  opacity: 0.9;
+  display: none;
+}
+
+.login-input-group input {
+  width: 100%;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 10px;
+  padding: 12px 15px;
+  color: white;
+  font-size: 16px;
+  outline: none;
+  font-family: var(--font-body);
+}
+
+.login-input-group input::placeholder {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.login-input-group input:focus {
+  border-color: white;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Botón Ingresar */
+.btn-ingresar {
+  margin-top: 20px;
+  background-color: white;
+  color: var(--orange-secondary);
+  border: none;
+  padding: 12px 50px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  width: auto;
+  font-family: var(--font-body);
+}
+
+.btn-ingresar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}

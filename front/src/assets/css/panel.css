@@ -1,0 +1,533 @@
+/* ==========================================================================
+   1. VARIABLES Y CONFIGURACIÓN GLOBAL
+   ========================================================================== */
+:root {
+  --orange-primary: #FE6416;
+  --orange-secondary: #EC3215;
+  --bg-pink: #FDF2F0;
+  --font-heading: 'DynaPuff', cursive;
+  --font-body: 'Montserrat', sans-serif;
+}
+
+.panel-page {
+  background-color: var(--bg-pink);
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-body);
+}
+
+.panel-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+}
+
+/* ==========================================================================
+   2. HEADER DEL PANEL
+   ========================================================================== */
+.panel-header {
+  background-color: var(--orange-primary);
+  width: 100%;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.panel-header h1 {
+  color: white;
+  font-family: var(--font-heading);
+  margin: 0;
+  font-size: 32px;
+  letter-spacing: 1px;
+}
+
+/* ==========================================================================
+   3. MENÚS DE NAVEGACIÓN (TARJETAS)
+   ========================================================================== */
+/* Grilla Principal (PanelControl.jsx) */
+.panel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); 
+  gap: 80px;
+  max-width: 950px;
+  width: 100%;
+}
+
+/* Grilla Secundaria (Menú Adopciones/Noticias/Historias) */
+.panel-grid-tarjetas {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 30px;
+  max-width: 1300px;
+  width: 100%;
+}
+
+/* Estilo de Tarjeta */
+.panel-card, 
+.panel-card-salir {
+  background-color: var(--orange-primary);
+  border-radius: 15px;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  box-shadow: 0 8px 15px rgba(254, 100, 22, 0.2);
+  transition: transform 0.2s, box-shadow 0.2s;
+  padding: 20px;
+}
+
+.panel-card:hover, 
+.panel-card-salir:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(254, 100, 22, 0.3);
+  background-color: #e65a12;
+}
+
+.panel-card-text,
+.panel-card-salir-text {
+  color: white;
+  font-weight: 700;
+  font-size: 20px;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* ==========================================================================
+   4. ESTILOS GENERALES DE FORMULARIOS ADMIN
+   (Estos estilos se usan tanto en Adopciones como en Noticias y en Historias)
+   ========================================================================== */
+
+/* Layout Base */
+.admin-container {
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+.admin-page-title {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 32px;
+  color: #222;
+  margin-bottom: 10px;
+  text-align: left;
+  margin-left: 2px;
+}
+
+.admin-form-card {
+  border: 1px solid var(--orange-secondary); 
+  border-radius: 15px;
+  padding: 40px;
+  background-color: transparent; 
+  margin-bottom: 30px;
+}
+
+.admin-form-layout {
+  display: flex;
+  gap: 60px;
+}
+
+.admin-form-left {
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admin-form-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  /* Nota: Para Adopciones se usa la clase auxiliar .right-column-aligned para el gap */
+  gap: 10px; 
+  height: 100%;
+}
+
+/* Inputs, Textareas, Labels y Selects Compartidos */
+.admin-input-group label, 
+.admin-label-images {
+  color: #555;
+  font-weight: 600;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.admin-input, 
+.admin-textarea,
+.admin-select {
+  width: 100%;
+  padding: 12px !important;
+  height: auto;
+  border: 1px solid var(--orange-secondary);
+  border-radius: 8px;
+  background-color: #FDF2F0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: #444;
+  outline: none;
+}
+
+.admin-textarea {
+  height: 250px;
+  resize: none;
+}
+
+.admin-select {
+  padding: 14px;
+  cursor: pointer;
+  appearance: none; 
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23EC3215%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+  background-repeat: no-repeat;
+  background-position: right 15px top 50%;
+  background-size: 12px auto;
+}
+
+.admin-input:focus, 
+.admin-textarea:focus,
+.admin-select:focus {
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(236, 50, 21, 0.2);
+}
+
+/* Botones Compartidos */
+.admin-actions,
+.admin-footer-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.btn-admin-submit {
+  background-color: var(--orange-primary);
+  color: white;
+  font-weight: 700;
+  border: none;
+  padding: 10px 60px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.btn-admin-submit:hover {
+  transform: translateY(-2px);
+  background-color: #e65a12;
+}
+
+/* ==========================================================================
+   5. ADMINISTRAR ADOPCIONES
+   (Alta, Modificar, Baja)
+   ========================================================================== */
+
+/* Clase auxiliar para recuperar el gap en Modificar Adopciones */
+.right-column-aligned {
+  gap: 20px !important; 
+}
+
+/* Imágenes (Grilla de 3) */
+.admin-images-grid {
+  display: flex;
+  gap: 20px;
+  margin-top: 5px;
+}
+
+.image-upload-box {
+  width: 130px;
+  height: 120px;
+  background-color: var(--orange-primary); 
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+}
+
+.image-upload-box:hover {
+  transform: translateY(-3px);
+  background-color: #e65a12;
+}
+
+/* Texto dentro de la caja imagen */
+.placeholder-text {
+  color: #444;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.upload-label {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.preview-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Baja Adopción (Específicos) */
+.datos-adoptante {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: #555;
+  font-weight: 600;
+  margin-bottom: 12px; 
+  margin-top: 10px;
+  display: block;
+  width: 100%;
+}
+
+.admin-subtitle {
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: #555;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  padding-bottom: 5px;
+}
+
+.admin-form-right-full {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Textarea grande de la derecha */
+.admin-textarea-large {
+  width: 100%;
+  flex: 1;
+  min-height: 280px;
+  padding: 15px;
+  border: 1px solid var(--orange-secondary);
+  border-radius: 8px;
+  background-color: #FDF2F0;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: #444;
+  outline: none;
+  resize: vertical;
+}
+
+.admin-textarea-large:focus {
+  background-color: #fff;
+  box-shadow: 0 0 5px rgba(236, 50, 21, 0.2);
+}
+
+/* Campos desactivados (Inputs grises) */
+.disabled-input {
+  background-color: #E0E0E0 !important;
+  border-color: #ccc !important;
+  color: #777 !important;
+  cursor: not-allowed;
+}
+
+/* Botones específicos de Baja */
+.btn-delete:hover {
+  background-color: #c0392b;
+}
+
+/* ==========================================================================
+   6. ADMINISTRAR NOTICIAS
+   (Alta, Modificar, Baja)
+   ========================================================================== */
+
+/* Ajuste específico para Noticias: elimina gap y asegura altura completa */
+.admin-form-right {
+  /* Aseguramos flex vertical */
+  display: flex; 
+  flex-direction: column;
+}
+
+/* Caja de Imagen ÚNICA y GRANDE */
+.image-upload-box-single {
+  width: 100%;
+  flex: 1; /* Ocupa todo el alto disponible */
+  min-height: 250px; 
+  background-color: var(--orange-primary); 
+  border-radius: 15px;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  transition: transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: -10px;
+}
+
+.image-upload-box-single:hover {
+  transform: translateY(-3px);
+  background-color: #e65a12;
+}
+
+/* Texto grande dentro de la imagen única */
+.placeholder-text-large {
+  color: #444; 
+  font-weight: 700;
+  font-size: 18px; 
+}
+
+/* ==========================================================================
+   7. ADMINISTRAR HISTORIAS
+   (Alta, Modificar, Baja)
+   ========================================================================== */
+
+/* Grilla de imágenes para Alta Historias */
+.admin-images-grid-historias {
+  display: flex;
+  gap: 20px;
+  margin-top: 0; 
+}
+
+/* Grilla de imágenes para Baja Historias */
+.admin-images-grid-baja-historias {
+  display: flex;
+  gap: 20px;
+  margin-top: 0; 
+}
+
+/* ==========================================================================
+   8. CAMBIAR CONTRASEÑA
+   ========================================================================== */
+
+/* Contenedor específico para centrar todo el contenido verticalmente si se desea */
+.login-layout-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+/* Tarjeta centrada y más angosta (Max 500px) */
+.admin-card-centered {
+  max-width: 500px; 
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px;
+  border: 1px solid var(--orange-secondary);
+  border-radius: 15px;
+  background-color: transparent; /* O #FDF2F0 si prefieres que tenga fondo suave */
+  display: flex;
+  flex-direction: column;
+  gap: 25px; /* Espacio entre inputs */
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* Sutil sombra */
+}
+
+/* Título centrado (Sobreescribe el default alineado a la izquierda) */
+.text-center {
+  text-align: center;
+  margin-left: 0;
+}
+
+/* ==========================================================================
+   9. RESPONSIVE DESIGN
+   ========================================================================== */
+
+/* --- TABLETS (Entre 768px y 1024px) --- */
+@media (max-width: 1024px) {
+  .panel-grid,
+  .panel-grid-tarjetas {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    max-width: 600px;
+  }
+}
+
+/* --- CELULARES (Menos de 768px) --- */
+@media (max-width: 768px) {
+
+  /* 1. AJUSTES GENERALES */
+  .panel-container {
+    padding: 20px;
+    align-items: center;
+    min-height: 100%;
+  }
+
+  .panel-header h1 {
+    font-size: 24px;
+  }
+  
+  /* 2. TODOS LOS MENÚS EN 1 COLUMNA VERTICAL */
+  .panel-grid, 
+  .panel-grid-tarjetas {
+    display: grid;
+    grid-template-columns: 1fr; /* <--- ESTO FUERZA UNA SOLA COLUMNA */
+    gap: 20px;
+    max-width: 350px; /* Ancho controlado */
+    width: 100%;
+    margin: 0 auto; /* Centrado horizontal */
+  }
+
+  /* Ajuste de las tarjetas */
+  .panel-card, 
+  .panel-card-salir {
+    padding: 15px;
+    min-height: 100px;
+    aspect-ratio: auto;
+    height: auto;
+  }
+
+  .panel-card-text,
+  .panel-card-salir-text {
+    font-size: 18px;
+  }
+
+  /* 3. FORMULARIOS (Alta/Baja/Modificar) */
+  .admin-form-layout {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .admin-images-grid,
+  .admin-images-grid-historias,
+  .admin-images-grid-baja-historias {
+    justify-content: center;
+    flex-wrap: wrap; /* Por seguridad, si la pantalla es muy pequeña */
+  }
+
+  .image-upload-box {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .image-upload-box-single {
+    min-height: 200px;
+    margin-top: 10px !important;
+  }
+  
+  .admin-form-card {
+    padding: 20px;
+    border: none;
+  }
+}
+
+/* --- CELULARES PEQUEÑOS (Menos de 400px) --- */
+@media (max-width: 400px) {
+  .panel-grid-tarjetas {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .panel-card {
+    flex-direction: row;
+    justify-content: center;
+    min-height: 80px;
+  }
+}

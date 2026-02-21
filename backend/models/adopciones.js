@@ -16,18 +16,23 @@ const Adopcion = sequelize.define(
       autoincrement: true,
       alowNull: false,
     },
-    solicitante_id:{
-      type: DataTypes.INTEGER
-    },
-    nombre_solicitante: {
+    nombre_apellido: {
       type: DataTypes.STRING(150),
       alowNull: false 
     },
-    contacto: { 
+    email: { 
       type: DataTypes.STRING(150),
       alowNull: false 
     },
-    experiencia_mascotas: {
+    direccion: { 
+      type: DataTypes.STRING(150),
+      alowNull: false 
+    },
+    telefono: { 
+      type: DataTypes.BIGINT,
+      alowNull: false 
+    },
+    mensaje: {
        type: DataTypes.TEXT,
        alowNull: false, 
     },

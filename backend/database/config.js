@@ -3,6 +3,6 @@
         username : "root",
         password :"",
         database : "ongar",
-        host: "localhost"
+        host: "127.0.0.1"
     }
 }

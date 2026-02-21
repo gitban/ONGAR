@@ -1,0 +1,1689 @@
+/* ESTILOS GENERALES - ANIMALES RAMALLO */
+
+/* VARIABLES CSS */
+:root {
+  --orange-primary: #FE6416;   
+  --orange-secondary: #EC3215; 
+  --yellow-accent: #FFC83D;    
+  --dark-text: #262626;        
+  --white-bg: #F4F0F0;         
+  --pure-white: #FFFFFF;       
+  --font-heading: 'DynaPuff', cursive;
+  --font-body: 'Montserrat', sans-serif;  
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--dark-text);
+  background-color: var(--white-bg);
+  overflow-x: hidden;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* HEADER GENERAL */
+.site-header {
+  background-color: var(--pure-white);
+  padding: 8px 0;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  width: 100%;
+}
+
+.header-inner {
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+}
+
+.logo img {
+  height: 80px;
+  width: auto;
+}
+
+.main-nav ul {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.main-nav a {
+  font-weight: 600;
+  font-size: 16px;
+  transition: color 0.3s;
+}
+
+.main-nav a:hover, .main-nav a.active {
+  color: var(--orange-primary);
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* BOTONES Y MENÚ */
+.btn-donar {
+  background-color: var(--yellow-accent);
+  color: var(--pure-white);
+  font-weight: 700;
+  padding: 10px 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+  text-transform: uppercase;
+  font-size: 14px;
+  letter-spacing: 0.5px;
+  display: inline-block;
+}
+
+.btn-donar:hover { 
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.mobile-donar {
+  display: none;
+}
+
+.hamburger {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 24px;
+  padding: 0;
+  z-index: 1100;
+  margin-left: auto;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: var(--dark-text);
+  border-radius: 3px;
+  transition: all 0.3s ease-in-out;
+  transform-origin: center;
+}
+
+.hamburger.open span:nth-child(1) {
+  transform: translateY(10px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+  transform: translateY(-11px) rotate(-45deg); 
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* HERO SECTION (Inicio/Adopciones 1) */
+.hero {
+  background: linear-gradient(135deg, var(--orange-secondary), var(--orange-primary)), 
+              url('/Imágenes/Inicio/Hero Section.png'); /* Ruta absoluta desde public */
+  
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  color: var(--pure-white);
+  padding: 60px 20px 80px 20px;
+  position: relative;
+  border-bottom-left-radius:50% 40px;
+  border-bottom-right-radius: 50% 40px;
+  overflow: visible;
+  z-index: 2;
+}
+
+.hero-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  position: relative;
+}
+
+.hero h1 {
+  font-family: var(--font-heading);
+  font-size: 56px;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.hero p {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  font-weight: 400; 
+}
+
+.btn-contact {
+  background-color: var(--pure-white);
+  color: var(--orange-primary);
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 16px;
+  display: inline-block;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.btn-contact:hover {
+  background-color: var(--yellow-accent); 
+  color: var(--pure-white); 
+}
+
+/* HERO SECTION Inicio (Específico) */
+.hero-left {
+  flex: 1;
+  max-width:
+  600px;
+  padding-bottom: 20px;
+}
+
+.hero-right {
+  flex: 1;
+  display: flex; 
+  justify-content: flex-end; 
+  align-items: flex-end; 
+  position: relative;
+}
+
+.hero-right img { 
+  max-width: 100%; 
+  height: auto; 
+  max-height: 550px; 
+  object-fit: contain; 
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15)); 
+  margin-bottom: -130px; 
+  position: relative; 
+  z-index: 10;
+}
+
+/* HERO SECTION Adopciones (Específico) */
+.hero-adopciones {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 99.1px; /* Un poco más de espacio abajo para los perros decorativos */
+}
+
+.hero-inner-adopciones {
+  width: 100%;
+  justify-content: center;
+  position: relative; /* Necesario para position: absolute de los perros */
+}
+
+/* Contenedor del texto central */
+.hero-content-center {
+  max-width: 800px; 
+  z-index: 5; /* Texto sobre perros si se tocan */
+  position: relative;
+  margin: 0 auto;
+}
+
+/* Perros laterales decorativos (Desktop) */
+.hero-dog-left, .hero-dog-right {
+  position: absolute;
+  top: 55%;
+  transform: translateY(-50%);
+  z-index: 10;
+}
+
+.hero-dog-left {
+  left: -265px;
+}
+.hero-dog-left img {
+  height: 450px; 
+  width: auto;
+  transform: rotate(2.7deg); /* Ligera rotación para dinamismo */
+}
+
+.hero-dog-right {
+  right: -265px;
+}
+.hero-dog-right img {
+  height: 450px;
+  width: auto;
+  transform: rotate(-2.7deg);
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* TARJETAS página de Inicio */
+.about { 
+  padding: 140px 20px 80px 20px; 
+  text-align: center; 
+  background-color: var(--white-bg); 
+  position: relative; z-index: 1; 
+}
+
+.about h2 { 
+  font-family: var(--font-heading); 
+  font-size: 36px; 
+  margin-bottom: 50px; 
+  color: var(--dark-text); 
+}
+
+.cards-container { 
+  max-width: 1200px; 
+  margin: 0 auto; 
+  display: flex; 
+  justify-content: center; 
+  flex-wrap: wrap; 
+  gap: 30px; 
+}
+
+.card {
+  background-color: var(--pure-white); 
+  border-radius: 20px; 
+  padding: 40px 30px; 
+  width: 320px; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
+  border: 1px solid rgba(0,0,0,0.03); 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  transition: transform 0.3s; 
+}
+
+.card:hover { 
+  transform: translateY(-5px); 
+}
+
+.icon-wrapper { 
+  position: relative; 
+  width: 120px; 
+  height: 120px; 
+  margin-bottom: 20px; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+}
+
+.icon-bg { 
+  position: absolute; 
+  top: 0; 
+  left: 0; 
+  width: 100%; 
+  height: 100%; 
+  object-fit: contain; 
+  z-index: 1; 
+  opacity: 0.9; 
+}
+
+.icon-dog { 
+  position: relative; 
+  z-index: 2; 
+  width: 60%; 
+  height: auto; 
+  object-fit: contain; 
+}
+
+.card h3 { 
+  font-family: var(--font-heading); 
+  font-size: 18px; 
+  margin-bottom: 15px; 
+  color: var(--dark-text); 
+}
+
+.card p { 
+  font-size: 15px; 
+  line-height: 1.5; 
+  color: #555; 
+  margin-bottom: 20px; 
+}
+
+.card .btn-donar { 
+  margin-top: auto; 
+  width: 100%; 
+  text-align: center; 
+  box-sizing: border-box; 
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* PERROS ADOPTABLES (Adopciones 1) (Grilla) */
+.integrantes-section { 
+  padding: 80px 20px 60px 20px; 
+  text-align: center; 
+  max-width: 1200px; 
+  margin: 0 auto; 
+}
+
+.integrantes-section h2 { 
+  font-family: var(--font-heading); 
+  font-size: 42px; 
+  color: var(--dark-text); 
+  margin-bottom: 60px; 
+}
+
+.grid-adopcion { 
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 130px; 
+}
+
+.card-adopcion { 
+  background: var(--pure-white); 
+  border-radius: 30px; 
+  width: 300px; 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.08); 
+  display: flex; 
+  flex-direction: column; 
+  align-items: center; 
+  padding: 15px; 
+  transition: transform 0.3s; 
+}
+
+.card-adopcion:hover { 
+  transform: translateY(-5px); 
+}
+
+.card-img-container { 
+  width: 100%; 
+  height: 280px; 
+  border-radius: 20px; 
+  overflow: hidden; 
+  margin-bottom: 8px; 
+}
+
+.card-img-container img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+.card-adopcion h3 { 
+  font-family: var(--font-heading); 
+  font-size: 26px; 
+  margin: 10px; 
+  color: var(--dark-text); 
+}
+
+.btn-conoce { 
+  background-color: var(--pure-white); 
+  color: var(--orange-primary); 
+  padding: 12px 25px; 
+  border: 2px solid var(--orange-primary); 
+  border-radius: 50px; 
+  font-weight: 700; 
+  font-size: 14px; 
+  width: 100%; 
+  text-align: center; 
+  margin-top: 5px; 
+  text-transform: uppercase; 
+  transition: background 0.2s; 
+}
+
+.btn-conoce:hover { 
+  background-color: var(--yellow-accent); 
+  color: var(--pure-white); 
+  border: 2px solid var(--yellow-accent); 
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* DETALLE DE ANIMAL (Adopciones 2) */
+/* 1. HERO SECTION (Texto y Botón) */
+.infoAnimal-section {
+  background: linear-gradient(135deg, var(--orange-secondary), var(--orange-primary)), 
+              url('/Imágenes/Inicio/Hero Section.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  
+  color: var(--pure-white);
+  /* Ajuste de padding para centrar verticalmente mejor */
+  padding: 40px 5px 50px 10px; 
+  position: relative;
+}
+
+.infoAnimal-inner {
+  max-width: 900px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.animal-info {
+  text-align: left; /* Texto a la izquierda por defecto */
+   width: 100%;
+}
+
+.animal-info h2 {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  margin-bottom: 20px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.animal-info p {
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 3px;
+  max-width: 800px;
+}
+
+.animal-info h3 {
+  font-size: 20px;
+  margin-top: 20px;
+  font-weight: 700;
+}
+
+.btn-ayuda-container {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end; /* Botón a la derecha */
+  margin-top: 30px;
+}
+
+.btn-ayuda {
+  background-color: var(--pure-white);
+  color: var(--orange-primary);
+  padding: 12px 40px;
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 17px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  border: 2px solid transparent;
+  cursor: pointer;
+  text-align: center;
+  display: inline-block;
+}
+
+.btn-ayuda:hover {
+  background-color: var(--yellow-accent);
+  color: var(--pure-white);
+  transform: translateY(-2px);
+}
+
+/* 2. SECCIÓN DE GALERÍA (3 imágenes debajo) */
+.animal-gallery-section {
+  padding: 60px 20px;
+  background-color: var(--white-bg);
+}
+
+.animal-gallery-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  gap: 30px; /* Espacio entre las imágenes */
+  flex-wrap: wrap; 
+}
+
+.gallery-img-container {
+  flex: 1; 
+  min-width: 280px;
+  max-width: 380px; 
+  height: 350px; 
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.08);
+  border: 2px solid var(--orange-primary); 
+  transition: transform 0.3s ease;
+}
+
+.gallery-img-container:hover {
+  transform: translateY(-5px);
+}
+
+.gallery-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* FORMULARIO ADOPCIÓN (Adopciones 3) */
+/*  1. HERO SECTION FORMULARIO */
+.hero-formulario-section {
+  background: linear-gradient(135deg, var(--orange-secondary), var(--orange-primary)), 
+              url('Hero Section.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  color: var(--pure-white);
+  padding: 50px 20px 50px 20px; 
+  position: relative;
+  text-align: center;
+}
+
+.hero-formulario-section .hero-inner {
+  display: block;
+  text-align: center;
+}
+
+.hero-formulario-section h1 {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/*  2. FORMULARIO + IMAGEN */
+.form-container-section {
+  padding: 80px 20px;
+  background-color: var(--white-bg);
+}
+
+.form-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 50px; /* Espacio entre formulario e imagen */
+  align-items: stretch;
+}
+
+/* Columna Formulario */
+.form-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.adopcion-form {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Filas de campos*/
+.form-raw {
+  display: flex;
+  gap: 20px;
+
+}
+
+.form-group {
+  flex: 1; /* Para que ocupen igual ancho en la fila */
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 35px;
+}
+
+.form-row .form-group {
+  margin-bottom: 0; 
+}
+
+.form-group label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--dark-text);
+  font-size: 16px;
+}
+
+.form-group input,
+.form-group textarea {
+  background-color: var(--white-bg);
+  border: 1px solid var(--orange-primary);
+  border-radius: 10px;
+  padding: 15px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  outline: none;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.form-group textarea {
+  min-height: 150px; /* Asegura que sea más largo que los demás */
+  text-align: left; /* Placeholder y texto a la izquierda */
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: var(--orange-primary); /* Borde naranja al escribir */
+  background-color: var(--white-bg);
+}
+
+/* Placeholder transparente al hacer clic */
+.form-group input:focus::placeholder,
+.form-group textarea:focus::placeholder {
+  color: transparent;
+}
+
+.form-aclaracion {
+  font-size: 14px;
+  color: #666;
+  line-height: 1.5;
+  margin-bottom: 25px; 
+  margin-top: -10px; /* Acercarlo un poco al campo anterior */
+  font-style: italic;
+  text-align: left;
+  width: 100%;
+}
+
+.btn-enviar {
+  background-color: var(--yellow-accent);
+  color: var(--pure-white);
+  padding: 15px 40px;
+  border-radius: 30px;
+  border: none;
+  font-weight: 700;
+  font-size: 18px;
+  margin-top: 10px;
+  cursor: pointer;
+  align-self: flex-start; /* Alineado a la izquierda */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.btn-enviar:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* Columna Imagen */
+.form-image-wrapper {
+  flex: 1;
+  height: auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  display: flex;
+}
+
+.form-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* SECCIÓN NOTICIAS */
+/*  1. HERO SECTION NOTICIAS */
+.hero-noticias-section {
+  background: linear-gradient(135deg, var(--orange-secondary), var(--orange-primary)), 
+              url('Hero Section.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  color: var(--pure-white);
+  padding: 50px 20px 50px 20px; 
+  position: relative;
+  text-align: center;
+}
+
+.hero-noticias-section .hero-inner {
+  display: block;
+  text-align: center;
+}
+
+.hero-noticias-section h1 {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 2. TARJETAS DE NOTICIAS */
+.noticias-section { 
+  padding: 80px 20px 60px 20px; 
+  text-align: center; /* Alinear el contenido al centro para que el grid se vea bien */
+  max-width: 1200px; 
+  margin: 0 auto;
+}
+
+.grid-noticias { 
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 100px; /* Espacio entre tarjetas */
+}
+
+.card-noticia { 
+  background: var(--pure-white); 
+  border-radius: 20px; 
+  width: 320px; 
+  border: 2px solid var(--orange-primary); 
+  padding: 25px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 15px; /* Distancia igual entre elementos */
+  align-items: center; /* Centrar elementos horizontalmente */
+  transition: transform 0.3s ease; 
+}
+
+.card-noticia:hover { 
+  transform: translateY(-8px); 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.card-img-container-noticias { 
+  width: 100%; 
+  height: 200px; 
+  border-radius: 15px; 
+  overflow: hidden; 
+}
+
+.card-img-container-noticias img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+.noticia-content {
+  width: 100%;
+  text-align: left; /* Alinear el texto a la izquierda para mejor lectura */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.noticia-fecha {
+  font-size: 14px;
+  color: #777;
+  margin: 0;
+  font-weight: 500;
+}
+
+.card-noticia h3 { 
+  font-family: var(--font-body); 
+  font-size: 18px; 
+  color: var(--dark-text); 
+  margin: 0;
+  line-height: 1.3;
+}
+
+.btn-leer-noticias { 
+  background-color: var(--pure-white); 
+  color: var(--orange-primary); 
+  padding: 10px 25px; 
+  border: 2px solid var(--orange-primary); 
+  border-radius: 50px; 
+  font-weight: 700; 
+  font-size: 14px; 
+  text-align: center; 
+  margin-top: auto; /* Empuja el botón al final si hay espacio extra */
+  text-transform: uppercase; 
+  transition: all 0.3s ease; 
+  align-self: center; /* Centrar el botón en la tarjeta */
+  display: inline-block;
+}
+
+.btn-leer-noticias:hover { 
+  background-color: var(--orange-primary); 
+  color: var(--pure-white); 
+  border: 2px solid var(--orange-primary); 
+}
+
+/* --- 14. DETALLE NOTICIA + SIDEBAR (Noticias 2) --- */
+
+.detalle-noticia-section {
+  padding: 60px 20px 80px 20px;
+  background-color: var(--white-bg); 
+  min-height: 60vh;
+}
+
+/* Contenedor Flex: Contenido Izq - Sidebar Der */
+.layout-noticia-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 50px;
+  align-items: flex-start; 
+}
+
+/* Columna Izquierda: Noticia Principal */
+.noticia-principal-content {
+  flex: 3; /* ~75% del ancho */
+  background-color: transparent; 
+  padding: 0; 
+}
+
+/* Imagen Principal */
+.detalle-img-full {
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  border-radius: 15px;
+  overflow: hidden;
+  margin-bottom: 30px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.detalle-img-full img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Encabezado */
+.noticia-header-block {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.noticia-header-block h2 {
+  font-family: var(--font-heading);
+  font-size: 42px;
+  color: var(--dark-text);
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.detalle-fecha {
+  font-size: 14px;
+  color: #888;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* Cuerpo */
+.noticia-cuerpo-texto {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #444;
+  margin-bottom: 40px;
+  text-align: justify;
+}
+
+.noticia-cuerpo-texto p {
+  margin-bottom: 20px;
+}
+
+/* Botón Volver */
+.noticia-action-area {
+  border-top: 1px solid #ddd;
+  padding-top: 30px;
+  text-align: center; 
+}
+
+.btn-volver {
+  display: inline-block;
+  color: var(--orange-primary);
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  border: 2px solid var(--orange-primary);
+  padding: 10px 30px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.btn-volver:hover {
+  background-color: var(--orange-primary);
+  color: var(--pure-white);
+}
+
+/* --- SIDEBAR DERECHA --- */
+.sidebar-noticias {
+  flex: 1; /* ~25% del ancho */
+  background-color: var(--pure-white);
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid #eee;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.03);
+  position: sticky;
+  top: 100px; 
+}
+
+.sidebar-title {
+  font-family: var(--font-heading);
+  font-size: 20px;
+  color: var(--dark-text);
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--orange-primary);
+  padding-bottom: 10px;
+  display: inline-block;
+}
+
+.lista-recientes {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.card-reciente-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.card-reciente {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  transition: transform 0.2s ease;
+}
+
+.card-reciente:hover {
+  transform: translateX(5px);
+}
+
+.reciente-img {
+  width: 80px;
+  height: 80px;
+  border-radius: 10px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.reciente-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.reciente-info h4 {
+  font-family: var(--font-body);
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 5px;
+  line-height: 1.3;
+  color: var(--dark-text);
+}
+
+.leer-mas-small {
+  font-size: 13px;
+  color: var(--orange-primary);
+  font-weight: 600;
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* SECCIÓN HISTORIAS */
+/*  1. HERO SECTION NOTICIAS */
+.hero-historias-section {
+  background: linear-gradient(135deg, var(--orange-secondary), var(--orange-primary)), 
+              url('Hero Section.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  color: var(--pure-white);
+  padding: 50px 20px 50px 20px; 
+  position: relative;
+  text-align: center;
+}
+
+.hero-historias-section .hero-inner {
+  display: block;
+  text-align: center;
+}
+
+.hero-historias-section h1 {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 2. TARJETAS DE HISTORIAS */
+.historias-section { 
+  padding: 80px 20px 60px 20px; 
+  text-align: center; /* Alinear el contenido al centro para que el grid se vea bien */
+  max-width: 1200px; 
+  margin: 0 auto;
+}
+
+.grid-historias { 
+  display: flex; 
+  flex-wrap: wrap; 
+  justify-content: center; 
+  gap: 100px; /* Espacio entre tarjetas */
+}
+
+.card-historias { 
+  background: var(--pure-white); 
+  border-radius: 20px; 
+  width: 320px; 
+  border: 2px solid var(--orange-primary); 
+  padding: 25px; 
+  display: flex; 
+  flex-direction: column; 
+  gap: 15px; /* Distancia igual entre elementos */
+  align-items: center; /* Centrar elementos horizontalmente */
+  transition: transform 0.3s ease; 
+}
+
+.card-historias:hover { 
+  transform: translateY(-8px); 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.card-img-container-historias {
+  width: 100%; 
+  height: 250px; 
+  border-radius: 15px; 
+  overflow: hidden; 
+}
+
+.card-img-container-historias img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: cover; 
+}
+
+.historias-content {
+  width: 100%;
+  text-align: center; /* Alinear el texto a la izquierda para mejor lectura */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.card-historias h3 { 
+  font-family: var(--font-body); 
+  font-size: 18px; 
+  color: var(--dark-text); 
+  margin: 0;
+  line-height: 1.3;
+}
+
+.btn-leer-historias { 
+  background-color: var(--pure-white); 
+  color: var(--orange-primary); 
+  padding: 10px 25px; 
+  border: 2px solid var(--orange-primary); 
+  border-radius: 50px; 
+  font-weight: 700; 
+  font-size: 14px; 
+  text-align: center; 
+  margin-top: auto; /* Empuja el botón al final si hay espacio extra */
+  text-transform: uppercase; 
+  transition: all 0.3s ease; 
+  align-self: center; /* Centrar el botón en la tarjeta */
+  display: inline-block;
+}
+
+.btn-leer-historias:hover { 
+  background-color: var(--orange-primary); 
+  color: var(--pure-white); 
+  border: 2px solid var(--orange-primary); 
+}
+
+/* DETALLE HISTORIA (Historias 2) */
+
+/* Contenedor principal para centrar el contenido */
+.layout-historias-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+/* Título del Animal */
+.historias-header-block {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.historias-header-block h2 {
+  font-family: var(--font-heading);
+  font-size: 2.5rem;
+  color: #333;
+  margin: 0;
+}
+
+/* Párrafo de Historia */
+.historias-cuerpo-texto {
+  max-width: 1000px;
+  margin: 0 auto 40px auto; 
+  text-align: left;
+  line-height: 1.5;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.historias-cuerpo-texto p {
+  margin-bottom: 15px;
+}
+
+/* 3. Galería de 3 Imágenes (Alineadas) */
+.historias-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columnas iguales */
+  gap: 60px;
+  margin-bottom: 50px;
+}
+
+/* Estilo de cada tarjeta de imagen */
+.historias-img-item {
+  width: 100%;
+  height: 300px; /* Altura fija para uniformidad */
+  overflow: hidden;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.historias-img-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Recorta la imagen para llenar el espacio sin deformar */
+  transition: transform 0.3s ease;
+}
+
+.historias-img-item img:hover {
+  transform: scale(1.05); /* Zoom suave al pasar el mouse */
+}
+
+/* Botón Volver */
+.historias-action-area {
+  border-top: 1px solid #ddd;
+  padding-top: 30px;
+  text-align: center; 
+}
+
+.btn-volver {
+  display: inline-block;
+  color: var(--orange-primary);
+  font-weight: 700;
+  font-size: 16px;
+  text-transform: uppercase;
+  border: 2px solid var(--orange-primary);
+  padding: 10px 30px;
+  border-radius: 30px;
+  transition: all 0.3s ease;
+}
+
+.btn-volver:hover {
+  background-color: var(--orange-primary);
+  color: var(--pure-white);
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* SECCIÓN CONTACTO */
+/*  1. HERO SECTION CONTACTO */
+.hero-contacto-section {
+  background: linear-gradient(135deg, var(--orange-secondary), var(--orange-primary)), 
+              url('Hero Section.png');
+  background-size: cover;
+  background-position: center;
+  background-blend-mode: overlay;
+  color: var(--pure-white);
+  padding: 50px 20px 50px 20px; 
+  position: relative;
+  text-align: center;
+}
+
+.hero-contacto-section .hero-inner {
+  display: block;
+  text-align: center;
+}
+
+.hero-contacto-section h1 {
+  font-family: var(--font-heading);
+  font-size: 48px;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* 2. CONTENIDO PRINCIPAL CONTACTO */
+/* Layout Principal: Dos Columnas */
+.contacto-layout {
+  padding: 80px 20px;
+  background-color: var(--white-bg);
+}
+
+.contacto-main-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  gap: 60px; /* Espacio entre la columna de info y el formulario */
+  align-items: flex-start;
+}
+
+/* --- COLUMNA IZQUIERDA: INFORMACIÓN --- */
+.columna-info {
+  flex: 1; /* Ocupa el 50% aprox */
+  padding-right: 20px;
+}
+
+.intro-text h2 {
+  font-family: var(--font-heading); /* Fredoka One */
+  font-size: 32px;
+  color: var(--dark-text);
+  margin-bottom: 25px;
+}
+
+.intro-text p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #666; /* Gris suave */
+  margin-bottom: 15px;
+}
+
+/* Tarjetas de Email y Teléfono */
+.contact-cards-container {
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.contact-card {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: #FDF2F0; /* Fondo rosado/gris muy suave */
+  border: 1px solid var(--orange-secondary); /* Borde naranja rojizo */
+  border-radius: 15px;
+  padding: 20px 25px;
+  transition: transform 0.2s ease;
+}
+
+.contact-card:hover {
+  transform: translateX(5px);
+}
+
+/* Iconos de las tarjetas (Círculo rojo/naranja) */
+.icon-box {
+  width: 50px;
+  height: 50px;
+  background-color: var(--orange-secondary);
+  border-radius: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.icon-box img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1); /* Vuelve el icono blanco */
+}
+
+.card-text h4 {
+  font-size: 18px;
+  color: var(--dark-text);
+  margin-bottom: 5px;
+}
+
+.card-text p {
+  font-size: 16px;
+  color: #555;
+  margin: 0;
+}
+
+/* Redes Sociales y Ubicación (Abajo a la izquierda) */
+.social-location-container {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Distancia igual entre todos los elementos (IG, FB, Ubicación) */
+  flex-wrap: wrap;
+}
+
+.social-item {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: transform 0.2s ease;
+}
+
+.social-item:hover {
+  transform: scale(1.1); /* Efecto zoom al pasar el mouse */
+}
+
+.social-item img {
+  width: 30px;
+  height: 30px;
+  object-fit: contain;
+}
+
+/* Estilo específico para el texto de la ubicación */
+.location-item {
+  gap: 10px; /* Espacio entre el pin y el texto */
+}
+
+.location-text {
+  color: #666;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* 3. FORMULARIO DE CONTACTO */
+.columna-form {
+  flex: 1; /* Ocupa el otro 50% */
+}
+
+/* Caja contenedora del formulario (Borde naranja grande) */
+.form-box-border {
+  background-color: transparent;
+  border: 1px solid var(--orange-secondary);
+  border-radius: 20px;
+  padding: 40px;
+}
+.contacto-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Filas de inputs (Nombre/Apellido, etc) */
+.form-row {
+  display: flex;
+  gap: 20px;
+}
+
+.form-row .form-group {
+  flex: 1; /* Que ocupen 50% cada uno */
+}
+
+/* Estilos de los inputs */
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 15px;
+  background-color: #F5F0F0; /* Fondo grisáceo del input */
+  border: 1px solid var(--orange-secondary);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: 16px;
+  color: #333;
+  outline: none;
+}
+
+.form-group textarea {
+  min-height: 150px;
+  resize: vertical;
+}
+
+/* Estilo para que el textarea ocupe todo el ancho */
+.full-width {
+  width: 100%;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+  color: #888;
+}
+
+/* Botón Enviar */
+.btn-enviar-contacto {
+  background-color: var(--orange-primary);
+  color: var(--pure-white);
+  padding: 10px 40px;
+  border-radius: 30px;
+  border: none;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  align-self: flex-start; /* Alineado a la izquierda */
+  transition: transform 0.2s, box-shadow 0.2s;
+  width: auto; 
+  display: inline-block;
+}
+
+.btn-enviar-contacto:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* FOOTER */
+.site-footer {
+  background-color: var(--orange-primary);
+  color: var(--pure-white);
+  text-align: center;
+  padding: 20px;
+  margin-top: 40px;
+}
+
+.site-footer p {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* -------------------------------------------------------------------------------------------- */
+
+/* RESPONSIVE DESIGN (< 900px) */
+@media (max-width: 900px) {
+  
+  /* HEADER MÓVIL */
+  .header-actions { display: none; }
+  .hamburger { display: flex; margin-left: auto; }
+
+  /* MENU DESPLEGABLE */
+  .main-nav { display: none; }
+  .main-nav.active {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    padding: 30px 20px;
+    box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+    border-top: 1px solid #f0f0f0;
+    z-index: 999;
+    animation: slideDown 0.3s ease forwards;
+  }
+  
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .main-nav.active ul {
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+  }
+  
+  .main-nav.active a { font-size: 18px; }
+
+  /* Botón Donar en Menú Móvil */
+  .mobile-donar {
+    display: block; 
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+  }
+  .mobile-donar .btn-donar {
+    width: 50%;
+    padding: 10px;
+  }
+
+  /* HERO INICIO MÓVIL */
+  .hero { padding-bottom: 60px; }
+  .hero-inner { flex-direction: column; text-align: center; } 
+  .hero-left, .hero-right { max-width: 100%; justify-content: center; }
+  .hero-left h1 { font-size: 42px; }
+  
+  .hero-right img {
+    max-height: 350px;
+    margin-top: 20px;
+    margin-bottom: -90px;
+  }
+  
+  .about { padding-top: 100px; }
+
+  .hero-adopciones {
+    padding-bottom: 80px; 
+  }
+
+  .hero-inner-adopciones {
+    flex-direction: column;
+  }
+  
+  .hero-dog-left, .hero-dog-right {
+    position: relative; /* Ya no absolutos */
+    display: none; /* Ocultos inicialmente */
+    margin: 10px auto; /* Centrados */
+    bottom: auto; left: auto; right: auto;
+  }
+  
+  .hero-dog-left img, .hero-dog-right img {
+    height: 180px; 
+    transform: none;
+  }
+  
+  /* Orden Visual en Móvil (Opcional):
+     Si se quiere que el texto quede PRIMERO, se puede usar Flex order.
+     Pero por defecto, en el HTML está: DogLeft, Texto, DogRight.
+     Se verán: Perro 1 -> Texto -> Perro 2.
+  */
+
+  .infoAnimal-section {
+    padding-bottom: 60px;
+  }
+
+  .animal-info {
+    text-align: center;
+  }
+  
+  .btn-ayuda-container {
+    justify-content: center; /* Botón centrado en móvil */
+  }
+  
+  .animal-gallery-grid {
+    flex-direction: column; /* Fotos una abajo de otra */
+    align-items: center;
+  }
+  
+  .gallery-img-container {
+    width: 100%;
+    max-width: 100%; /* Ocupan todo el ancho */
+    height: 300px; 
+  }
+
+  .hero-formulario-section h1 {
+    font-size: 36px;
+  }
+
+  .form-inner {
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+  }
+  
+  .form-wrapper {
+    width: 100%;
+  }
+  
+  .form-row {
+    flex-direction: column; 
+    gap: 35px;
+    margin-bottom: 35px;
+  } 
+  
+  .form-row .form-group {
+    margin-bottom: 0;
+  } 
+  
+  .form-image-wrapper {
+    width: 100%;
+    height: 300px; 
+    position: relative;
+  }
+
+  /* Ajuste Detalle Noticia en Móvil */
+  .layout-noticia-inner {
+    flex-direction: column; /* Apilar contenido y sidebar */
+    gap: 40px;
+  }
+  
+  .noticia-principal-content {
+    order: 1; /* Primero la noticia */
+  }
+  
+  .sidebar-noticias {
+    order: 2; /* Luego el sidebar */
+    width: 100%;
+    position: static; 
+  }
+  
+  .noticia-header-block h2 {
+    font-size: 32px;
+  }
+
+  .historias-gallery-grid {
+    grid-template-columns: 1fr; /* 1 sola columna en móvil */
+    height: auto;
+  }
+
+  /* 1. Layout general: Apilar columnas */
+  .contacto-main-container {
+    flex-direction: column;
+    gap: 40px;
+  }
+  
+  /* 2. Columna Info: Texto Centrado */
+  .columna-info {
+    padding-right: 0;
+    text-align: center; /* Alineación centrada como en la imagen */
+  }
+  
+  .intro-text h2, 
+  .intro-text p {
+    text-align: center;
+  }
+
+  /* 3. Tarjetas de Contacto: Texto alineado a la izquierda internamente */
+  .contact-card {
+    justify-content: flex-start; 
+    text-align: left;
+  }
+
+  /* 4. Iconos Sociales: Centrados */
+  .social-location-container {
+    justify-content: left; /* Centra los íconos y la ubicación */
+    margin-bottom: 20px;
+  }
+
+  /* 5. FORMULARIO: MANTENER FILAS (Nombre/Apellido lado a lado) */
+  .form-box-border {
+    padding: 20px; /* Padding reducido para ganar espacio */
+  }
+
+  .form-row {
+    flex-direction: row; /* IMPORTANTE: Mantiene los inputs lado a lado */
+    gap: 10px; /* Reducir el espacio entre ellos para que entren bien */
+  }
+  
+  .form-group input {
+    padding: 12px 10px; /* Un poco menos de relleno interno */
+    font-size: 14px; /* Letra un poco más chica para evitar cortes */
+  }
+
+  .btn-enviar-contacto {
+    width: auto;
+    align-self: flex-start;
+  }
+}

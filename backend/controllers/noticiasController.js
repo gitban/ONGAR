@@ -7,7 +7,7 @@ const listarnoticias = async (req, res) => {
     res.json(noticias);
   } catch (error) {
     console.error("Error al listar las noticias:", error);
-    res.status(500).json({ error: "Error al listar los noticias" });
+    res.status(500).json({ error: "Esteban, Error al listar los noticias" });
   }
 };
 

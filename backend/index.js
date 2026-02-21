@@ -6,10 +6,20 @@ const bodyParser = require('body-parser');
 const app = express();
 const session = require('express-session');
 const db = require('./database/db');
+const cors = require('cors');
+const path = require('path');
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
+//app.use(cors());
 
 app.use(express.json());
+
+app.use(cors({
+  origin: 'http://localhost:5173', // Tu origen de Vite/React
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'], // Permitimos todos los métodos
+  allowedHeaders: ['Content-Type', 'Authorization'], // ✅ ACÁ ESTÁ EL SECRETO: Permitir Authorization
+  credentials: true // Por si después usás cookies
+}));
 
 app.use(bodyParser.json());
 
@@ -18,26 +28,6 @@ app.use(
     extended: true,
   }),
 );
-
-// Agrego al header del archivo configuraciones para que acepte conexiones CORS
-app.use(function (req, res, next) {
-
-  // Sitio al que permitiremos acceso
-  res.setHeader('Access-Control-Allow-Origin', '*');
-
-  // Metodos que se permiten
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', true);
-
-  // Pass to next layer of middleware
-  next();
-});
 
 // Manejo de sesiones //
 app.use(session({
@@ -68,6 +58,7 @@ const AnimalesRouter = require('./routers/animalesRoutes');
 const DonacionesRouter = require('./routers/donacionesRoutes');
 const HistoriasRouter = require('./routers/historiasRoutes');
 const NoticiasRouter = require('./routers/noticiasRoutes');
+const ContactoRouter = require('./routers/contactoRoutes');
 
 //rutas o Endpoints
 
@@ -84,11 +75,12 @@ app.use('/api', AnimalesRouter);
 app.use('/api', DonacionesRouter);
 app.use('/api', HistoriasRouter);
 app.use('/api', NoticiasRouter);
+app.use('/api', ContactoRouter);
 
-// Exporta el handler para Lambda
-module.exports.handler = serverless(app);
+// Esto dice: "Cuando alguien pida /imagenes, buscalo en la carpeta imagenes_test"
+app.use('/imagenes', express.static(path.join(__dirname, 'imagenes_test')));
 
 // Arrancamos el servidor en caso de uso local, sin AWS-Lambda
-// app.listen(PORT, () => {
-//   console.log(`Servidor escuchando en el puerto ${PORT}`);
-// });
+app.listen(PORT, () => {
+  console.log(`Servidor escuchando en el puerto ${PORT}`);
+});

@@ -13,36 +13,45 @@ const Adopcion = sequelize.define(
     },
     nombre: {
       type: DataTypes.STRING(50),
-      alowNull: false 
+      alowNull: false
     },
-    sexo: { 
+    sexo: {
       type: DataTypes.STRING(20),
-      alowNull: false 
+      alowNull: false
     },
     edad_aproximada: {
-       type: DataTypes.STRING(50),
-       alowNull: false, 
+      type: DataTypes.STRING(50),
+      alowNull: false,
     },
     tamaño: {
-       type: DataTypes.STRING(50),
-       alowNull: false, 
+      type: DataTypes.STRING(50),
+      alowNull: false,
     },
     estado_salud: {
       type: DataTypes.STRING(255)
     },
     descripcion: {
       type: DataTypes.TEXT,
-      alowNull: false 
+      alowNull: false
     },
     foto: {
       type: DataTypes.STRING(255),
-      alowNull: false 
+      alowNull: false,
+      get() {
+        const rawValue = this.getDataValue('foto');
+        // Si hay datos, los convertimos de String a Array, si no, devolvemos array vacío
+        return rawValue ? JSON.parse(rawValue) : [];
+      },
+      set(val) {
+        // Al guardar, convertimos el Array a String automáticamente
+        this.setDataValue('foto', JSON.stringify(val));
+      }
     },
-    fecha_ingreso: { 
+    fecha_ingreso: {
       type: DataTypes.TIME,
-      alowNull: false 
+      alowNull: false
     },
-    adoptado:{
+    adoptado: {
       type: DataTypes.BOOLEAN,
       alowNull: false
     }

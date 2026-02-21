@@ -2,8 +2,16 @@
 
 // Controlador para listar todas las adopciones
 const listaradopciones = async (req, res) => {
+  const { id_animal } = req.query;
+
+  let filtro = {};
+
+  if (id_animal) {
+    filtro.id_animal = id_animal;
+  }
+
   try {
-    const adopciones = await Adopcion.findAll();
+    const adopciones = await Adopcion.findAll({ where: filtro });
     res.json(adopciones);
   } catch (error) {
     console.error("Error al listar las adopciones:", error);
@@ -14,7 +22,6 @@ const listaradopciones = async (req, res) => {
 // Controlador para crear una nueva adopcion
 const crearadopcion = async (req, res) => {
   const Nombre_adopcion = req.body;
-  console.log(Nombre_adopcion);
   try {
     await Adopcion.create(Nombre_adopcion);
     res.status(201).json(Nombre_adopcion);
@@ -48,9 +55,9 @@ const actualizaradopcion = async (req, res) => {
     if (!adopcion) {
       return res.status(404).json({ error: "Adopcion no encontrada" });
     }
-    
+
     await adopcion.update(Nombre_adopcion)
-    
+
     res.json(adopcion);
   } catch (error) {
     console.error("Error al actualizar la adopcion:", error);
@@ -75,9 +82,9 @@ const eliminaradopcion = async (req, res) => {
 };
 
 module.exports = {
-    listaradopciones,
-    crearadopcion,
-    obteneradopcion,
-    actualizaradopcion,
-    eliminaradopcion
+  listaradopciones,
+  crearadopcion,
+  obteneradopcion,
+  actualizaradopcion,
+  eliminaradopcion
 }

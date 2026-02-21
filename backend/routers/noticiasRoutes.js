@@ -4,7 +4,7 @@ const verifyToken = require('../lib/VerificarToken')
 const noticiasController = require('../controllers/noticiasController');
 
 // Rutas para las noticias
-router.get('/noticias',verifyToken, noticiasController.listarnoticias);
+router.get('/noticias', noticiasController.listarnoticias);
 router.post('/noticias',verifyToken, noticiasController.crearnoticia);
 router.get('/noticias/:id',verifyToken, noticiasController.obtenernoticia);
 router.put('/noticias/:id',verifyToken, noticiasController.actualizarnoticia);
