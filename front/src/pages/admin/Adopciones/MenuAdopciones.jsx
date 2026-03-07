@@ -49,7 +49,7 @@ const MenuAdopciones = () => {
 
           {/* Tarjeta 3: Baja */}
           <Link to="/admin/adopciones/baja" state={{ datos: datos }} className="panel-card">
-            <span className="panel-card-text">Baja<br />Adopción</span>
+            <span className="panel-card-text">Entregar <br /> en adopción</span>
           </Link>
 
           {/* Tarjeta Extra: Volver al Panel Principal */}

@@ -41,13 +41,13 @@ const Header = () => {
             <li><Link to="/historias" className={isActive('/historias')} onClick={closeMenu}>Historias</Link></li>
             <li><Link to="/contacto" className={isActive('/contacto')} onClick={closeMenu}>Contacto</Link></li>
             <li className="mobile-donar">
-               <a href="#" className="btn-donar">DONAR AQUÍ</a>
+               <a href="https://linktr.ee/ongramallo" target='blank' className="btn-donar">DONAR AQUÍ</a>
             </li>
           </ul>
         </nav>
 
         <div className="header-actions">
-          <a href="#" className="btn-donar">DONAR AQUÍ</a>
+          <a href="https://linktr.ee/ongramallo" target='blank' className="btn-donar">DONAR AQUÍ</a>
         </div>
       </div>
     </header>

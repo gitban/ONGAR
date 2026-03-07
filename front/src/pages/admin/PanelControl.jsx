@@ -28,15 +28,23 @@ const PanelControl = () => {
             <span className="panel-card-text">Administrar<br />Historias</span>
           </Link>
 
-          {/* Botón 4: Donaciones */}
-          <Link to="/admin/donaciones" className="panel-card">
-            <span className="panel-card-text">Consultar<br />Donaciones</span>
-          </Link>
+          {/* 04/03 - Lucas Banegas - Se quita opciones de Donaciones ya que el registro lo van a tener por MercadoPago */}
 
-          {/* Botón 5: Cambiar Contraseña */}
+
+
+          {/* Botón 4: Donaciones */}
+
+          {/* <Link to="/admin/donaciones" className="panel-card">
+            <span className="panel-card-text">Consultar<br />Donaciones</span>
+          </Link> */}
+
+        {/* 04/03 - Lucas Banegas - Se quita opciones de cambiar contraseña para evitar problemas.*/}
+
+
+          {/* Botón 5: Cambiar Contraseña
           <Link to="/admin/cambiarcontrasenia" className="panel-card">
             <span className="panel-card-text">Cambiar<br />contraseña</span>
-          </Link>
+          </Link> */}
 
           {/* Botón 6: Salir (Volver al inicio) */}
           <Link to="/" className="panel-card">

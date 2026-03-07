@@ -47,7 +47,7 @@ const Inicio = () => {
             </div>
             <h3>Colaborá con nosotros</h3>
             <p>Podés ayudarnos a seguir cambiando vidas haciendo clic en el siguiente botón.</p>
-            <a href="#" className="btn-donar">DONAR AQUÍ</a>
+            <a href="https://linktr.ee/ongramallo" target='blank' className="btn-donar">DONAR AQUÍ</a>
           </article>
         </div>
       </main>

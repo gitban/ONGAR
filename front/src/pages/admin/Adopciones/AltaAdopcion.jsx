@@ -11,7 +11,7 @@ const AltaAdopcion = () => {
   const [imagenes, setImagenes] = useState(['', '', '']);
 
   //opciones para el selector de sexo
-  const opcionesSexo = ['Masculino', 'Femenino', 'No definido'];
+  const opcionesSexo = ['Macho', 'Hembra'];
 
   //opciones para el selector de sexo
   const opcionesTamanio = ['Grande', 'Mediano', 'Pequeño'];

@@ -117,7 +117,7 @@ const BajaAdopcion = () => {
 
       <div className="admin-container">
 
-        <h2 className="admin-page-title">Baja Adopciones</h2>
+        <h2 className="admin-page-title">Entregar en adopción</h2>
 
         <div className="admin-form-card">
 

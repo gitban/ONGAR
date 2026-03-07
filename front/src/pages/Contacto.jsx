@@ -65,29 +65,21 @@ const ContactForm = () => {
                 </div>
                 <div className="card-text">
                   <h4>Email:</h4>
-                  <p>emailanimalesramallo@gmail.com</p>
+                  <p>ongramallo35@gmail.com</p>
                 </div>
               </div>
 
-              <div className="contact-card">
-                <div className="icon-box">
-                  <img src="Imágenes/Contacto/Teléfono.png" alt="Tel" onError={() => "this.src='https://placehold.co/40?text=Tel'"} />
-                </div>
-                <div className="card-text">
-                  <h4>Teléfono:</h4>
-                  <p>123 4567890</p>
-                </div>
-              </div>
+
 
             </div>
 
             <div className="social-location-container">
-              <a href="#" className="social-item">
+              <a href="https://www.instagram.com/onganimalesramallo/" target='_blank' className="social-item">
                 <img src="/Imágenes/Contacto/Instagram.png" alt="IG" onError={() => "this.src='https://placehold.co/30?text=IG'"} />
               </a>
 
-              <a href="#" className="social-item">
-                <img src="/Imágenes/Contacto/Facebook.png" alt="FB" onError={() => "this.src='https://placehold.co/30?text=FB'"} />
+              <a href="https://www.facebook.com/maria.ayuda.56" target='_blank' className="social-item">
+                <img src="/Imágenes/Contacto/Facebook.png"  alt="FB" onError={() => "this.src='https://placehold.co/30?text=FB'"} />
               </a>
 
               <a href="#" className="social-item location-item">
