@@ -13,11 +13,21 @@ const listarnoticias = async (req, res) => {
 
 // Controlador para crear una nueva noticia
 const crearnoticia = async (req, res) => {
-  const Nombre_noticia = req.body;
-  console.log(Nombre_noticia);
   try {
-    await Noticia.create(Nombre_noticia);
-    res.status(201).json(Nombre_noticia);
+
+    const datos = req.body;
+    const archivo = req.file; // 
+
+    // Verificamos si llegó imagen
+    if (archivo) {
+      datos.foto = `/imagenes/${archivo.filename}`;
+    }
+
+    console.log(datos, "Datoss")
+    const nuevaNoticia = await Noticia.create(datos);
+
+    res.status(201).json(nuevaNoticia);
+
   } catch (error) {
     console.error("Error al crear la noticia:", error);
     res.status(500).json({ error: "Error al crear la noticia" });
