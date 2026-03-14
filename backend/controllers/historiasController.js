@@ -1,4 +1,4 @@
-﻿const { Historia, Post } = require('../database/associations');
+﻿const { Historia } = require('../database/associations');
 
 // Controlador para listar todas las historias
 const listarhistorias = async (req, res) => {
