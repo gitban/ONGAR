@@ -13,14 +13,23 @@ const listarhistorias = async (req, res) => {
 
 // Controlador para crear una nueva historia
 const crearhistoria = async (req, res) => {
-  const Nombre_historia = req.body;
-  console.log(Nombre_historia);
   try {
-    await Historia.create(Nombre_historia);
-    res.status(201).json(Nombre_historia);
+    const datosHistoria = req.body;
+    const archivos = req.files;
+
+    if (archivos && archivos.length > 0) {
+      // Solo creamos el array de strings, el MODELO se encarga del JSON.stringify
+      datosHistoria.imagenes = archivos.map((file) => `/imagenes/${file.filename}`);
+    }
+
+    const nuevaHistoria = await Historia.create(datosHistoria);
+
+    res.status(201).json({
+      success: true,
+      data: nuevaHistoria,
+    });
   } catch (error) {
-    console.error("Error al crear la historia:", error);
-    res.status(500).json({ error: "Error al crear la historia" });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -41,20 +50,37 @@ const obtenerhistoria = async (req, res) => {
 
 // Controlador para actualizar una historia por su ID
 const actualizarhistoria = async (req, res) => {
-  const historiaId = req.params.id;
-  const Nombre_historia = req.body;
+  const { id } = req.params;
+  const datosActualizados = req.body;
+  const archivos = req.files;
+
+  const imagenesViejas = req.body.imagenesExistentes
+    ? (Array.isArray(req.body.imagenesExistentes) ? req.body.imagenesExistentes : [req.body.imagenesExistentes])
+    : [];
+
+  const imagenesNuevas = archivos ? archivos.map(f => `/imagenes/${f.filename}`) : [];
+
+  // El resultado final es la suma de ambas
+  const totalImagenes = [...imagenesViejas, ...imagenesNuevas];
+
+  datosActualizados.imagenes = totalImagenes;
+
   try {
-    const historia = await Historia.findByPk(historiaId);
-    if (!historia) {
-      return res.status(404).json({ error: "Historia no encontrada" });
+    // IMPORTANTE: El segundo argumento es { where: { id: id } }
+    const [rowsUpdated] = await Historia.update(datosActualizados, {
+      where: { id: id },
+    });
+
+    if (rowsUpdated === 0) {
+      return res
+        .status(404)
+        .json({ message: "No se encontró la historia o no hay cambios" });
     }
-    
-    await historia.update(Nombre_historia)
-    
-    res.json(historia);
+
+    res.json({ message: "Actualizado con éxito" });
   } catch (error) {
-    console.error("Error al actualizar la historia:", error);
-    res.status(500).json({ error: "Error al actualizar la historia" });
+    console.error("Error al actualizar:", error);
+    res.status(500).json({ message: "Error interno" });
   }
 };
 

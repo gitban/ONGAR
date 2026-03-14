@@ -1,41 +1,97 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import '../../../assets/css/panel.css';
 
 const BajaHistoria = () => {
+  const token = localStorage.getItem('token');
+
   const [historiaSeleccionada, setHistoriaSeleccionada] = useState('');
-  
+  const [historias, setHistorias] = useState([]);
+
   // Estados para mostrar la info (solo lectura)
-  const [detalle, setDetalle] = useState('');
-  // Se simula que ya vienen 3 imágenes cargadas
-  const [imagenes, setImagenes] = useState([null, null, null]); 
+  const [titulo, setTitulo] = useState('');
+  const [contenido, setContenido] = useState('');
+  const [imagenes, setImagenes] = useState([null, null, null]);
+
+  // Estado para el feedback
+  const [status, setStatus] = useState({
+    loading: false,
+    msg: "",
+    error: false,
+  });
+
+  // Obtener listado de historias al montar
+  useEffect(() => {
+    fetch('/api/historias')
+      .then((res) => res.json())
+      .then((data) => setHistorias(data))
+      .catch((err) => console.error("Error al recuperar lista:", err));
+  }, []);
 
   const handleSelectChange = (e) => {
-    const seleccion = e.target.value;
-    setHistoriaSeleccionada(seleccion);
-    
-    // Simulación de fetch a la API
-    if (seleccion === 'historia1') {
-        setDetalle('Fue un rescate complicado pero logramos sacar a los cachorros de la tormenta...');
-        // Aquí se setean las URLs reales de las imágenes
-        // setImagenes(['url1', 'url2', 'url3']);
-    } else if (seleccion === 'historia2') {
-        setDetalle('Después de 2 años en el refugio, Toby encontró familia y ahora vive feliz en el campo...');
+    const seleccion = historias.find((historia) => historia.id == e.target.value);
+
+    if (seleccion) {
+      setHistoriaSeleccionada(seleccion.id);
+      setTitulo(seleccion.titulo);
+      setContenido(seleccion.contenido);
+      setImagenes(seleccion.imagenes || [null, null, null]);
     } else {
-        setDetalle('');
-        setImagenes([null, null, null]);
+      setHistoriaSeleccionada('');
+      setTitulo('');
+      setContenido('');
+      setImagenes([null, null, null]);
     }
   };
 
-  const handleDelete = (e) => {
+  const handleDelete = async (e) => {
     e.preventDefault();
     if (!historiaSeleccionada) {
       alert("Seleccione una historia para eliminar");
       return;
     }
-    if(confirm('¿Estás seguro de que deseas eliminar esta historia permanentemente?')) {
-      alert('Historia eliminada correctamente');
-      // Lógica de borrado API...
+    if (confirm('¿Estás seguro de que deseas eliminar esta historia permanentemente?')) {
+      setStatus({ loading: true, msg: "Eliminando...", error: false });
+
+      try {
+        const response = await fetch(`/api/historias/${historiaSeleccionada}`, {
+          method: 'DELETE',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (response.ok) {
+          setStatus({
+            loading: false,
+            msg: "¡Historia eliminada con éxito! ✅",
+            error: false,
+          });
+          
+          // Limpiar formulario
+          setHistoriaSeleccionada('');
+          setTitulo('');
+          setContenido('');
+          setImagenes([null, null, null]);
+          
+          // Actualizar la lista
+          setHistorias(historias.filter(h => h.id !== historiaSeleccionada));
+        } else {
+          if (response.status === 401 || response.status === 403) {
+            localStorage.removeItem("token");
+            window.location.href = "/login";
+            return;
+          }
+          throw new Error("Error al eliminar");
+        }
+      } catch (err) {
+        setStatus({
+          loading: false,
+          msg: `Error: ${err.message} ❌`,
+          error: true,
+        });
+      }
     }
   };
 
@@ -46,72 +102,97 @@ const BajaHistoria = () => {
       </header>
 
       <div className="admin-container">
-        
+
         <h2 className="admin-page-title">Baja Historias</h2>
 
         <div className="admin-form-card">
-          
-          <form className="admin-form-layout" onSubmit={handleDelete}>
-            
-            {/* COLUMNA IZQUIERDA: Selector + Detalle */}
-            <div className="admin-form-left">
-              
-              <div className="admin-input-group">
-                <label>Seleccionar historia</label>
-                <select 
-                  value={historiaSeleccionada}
-                  onChange={handleSelectChange}
-                  className="admin-select"
-                >
-                  <option value="" disabled>Seleccione una opción</option>
-                  <option value="historia1">Rescate en el río</option>
-                  <option value="historia2">Un final feliz para Toby</option>
-                </select>
-              </div>
 
-              <div className="admin-input-group">
-                <label>Detalles de historia</label>
-                <textarea 
-                  value={detalle} 
-                  readOnly
-                  className="admin-textarea disabled-input"
-                ></textarea>
-              </div>
+          <form onSubmit={handleDelete}>
+            <div className="admin-form-layout">
+              {/* COLUMNA IZQUIERDA: Selector + Datos */}
+              <div className="admin-form-left">
 
-            </div>
+                {/* Selector Historia*/}
+                <div className="admin-input-group">
+                  <label>Seleccionar historia</label>
+                  <select
+                    className="admin-select"
+                    name="historia_id"
+                    value={historiaSeleccionada}
+                    onChange={handleSelectChange}
+                  >
+                    <option value="">Seleccione historia a eliminar</option>
+                    {historias.map((historia) => (
+                      <option key={historia.id} value={historia.id}>
+                        {historia.titulo}
+                      </option>
+                    ))}
+                  </select>
+                </div>
 
-            {/* COLUMNA DERECHA: Imágenes (Visualización) */}
-            <div className="admin-form-right">
-              
-              {/* IMPORTANTE: Este <div> agrupa label y grilla para alinear alturas */}
-              <div>
-                <label className="admin-label-images">Imágenes</label>
-                
-                <div className="admin-images-grid-baja-historias">
-                  {[0, 1, 2].map((index) => (
-                    <div key={index} className="image-upload-box" style={{cursor: 'default'}}>
-                      <div className="upload-label">
-                        {imagenes[index] ? (
-                          <img src={imagenes[index]} alt={`Historia ${index + 1}`} className="preview-img" />
-                        ) : (
-                          <span className="placeholder-text">Imagen {index + 1}</span>
-                        )}
-                      </div>
-                    </div>
-                  ))}
+                {/* Título (solo lectura)*/}
+                <div className="admin-input-group">
+                  <label>Título</label>
+                  <input
+                    type="text"
+                    value={titulo}
+                    readOnly
+                    className="admin-input disabled-input"
+                  />
+                </div>
+
+                {/* Contenido (solo lectura)*/}
+                <div className="admin-input-group">
+                  <label>Contenido</label>
+                  <textarea
+                    value={contenido}
+                    readOnly
+                    className="admin-textarea disabled-input"
+                  ></textarea>
                 </div>
               </div>
 
+              {/* COLUMNA DERECHA: Imágenes (Visualización) */}
+              <div className="admin-form-right">
+
+                {/* IMPORTANTE: Este <div> agrupa label y grilla para alinear alturas */}
+                <div>
+                  <label className="admin-label-images">Imágenes</label>
+
+                  <div className="admin-images-grid">
+                    {[0, 1, 2].map((index) => (
+                      <div key={index} className="image-upload-box" style={{ cursor: 'default' }}>
+                        <div className="upload-label">
+                          {imagenes[index] ? (
+                            <img src={imagenes[index]} alt={`Historia ${index + 1}`} className="preview-img" />
+                          ) : (
+                            <span className="placeholder-text">Imagen {index + 1}</span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+              </div>
             </div>
 
+            <div className="admin-actions">
+              <button type="submit" className="btn-enviar-contacto btn-delete" disabled={status.loading || !historiaSeleccionada}>
+                {status.loading ? 'Eliminando...' : 'Eliminar'}
+              </button>
+            </div>
           </form>
 
-          {/* Botones Centrados */}
-          <div className="admin-footer-group">
-             <button type="submit" className="btn-admin-submit btn-delete" onClick={handleDelete}>
-               Eliminar
-             </button>
-             <Link to="/admin/historias" style={{color: '#666', textDecoration: 'underline'}}>Cancelar y Volver</Link>
+          {status.msg && (
+            <p style={{ color: status.error ? 'red' : 'green', marginTop: '10px' }}>
+              {status.msg}
+            </p>
+          )}
+
+          {/* Botón Volver */}
+          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+            <Link to="/admin/historias" style={{ color: '#666', textDecoration: 'underline' }}>Cancelar y Volver</Link>
           </div>
 
         </div>
