@@ -82,7 +82,7 @@ const ContactForm = () => {
                 <img src="/Imágenes/Contacto/Facebook.png"  alt="FB" onError={() => "this.src='https://placehold.co/30?text=FB'"} />
               </a>
 
-              <a href="#" className="social-item location-item">
+              <a href="https://www.google.com/maps/place/ramallo+buenos+aires/data=!4m2!3m1!1s0x95b9fca2f74ad067:0xf54b5dc7d1ce475a?sa=X&ved=1t:155783&ictx=111" className="social-item location-item" target="_blank">
                 <img src="/Imágenes/Contacto/Ubicación.png" alt="Pin" onError={() => "this.src='https://placehold.co/20?text=Pin'"} />
                 <span className="location-text">Ramallo, Provincia de Buenos Aires</span>
               </a>
