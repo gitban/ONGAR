@@ -1,9 +1,8 @@
 ﻿require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-// Asegúrate de tener tu clave secreta JWT en las variables de entorno
-// Por ejemplo, en un archivo .env: JWT_SECRET=tu_clave_seper_secreta
-const JWT_SECRET = process.env.JWT_SECRET;
+// Usar la clave secreta desde variables de entorno
+const SECRET_KEY = process.env.SECRET_KEY;
 
 module.exports = (req, res, next) => {
     // Intentar obtener el token de la cabecera 'Authorization'
@@ -26,7 +25,7 @@ module.exports = (req, res, next) => {
 
     try {
         // Verificar el token usando la clave secreta
-        const decoded = jwt.verify(token, process.env.SECRET_KEY);
+        const decoded = jwt.verify(token, SECRET_KEY);
 
         // Si es válido, adjuntar los datos del usuario (payload) a la solicitud
         req.user = decoded;

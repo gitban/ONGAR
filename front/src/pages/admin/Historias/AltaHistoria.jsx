@@ -60,8 +60,11 @@ const AltaHistoria = () => {
     formData.append('titulo', datos.titulo);
     formData.append('contenido', datos.contenido);
 
-    if (fotosParaEnviar.length > 0) {
-      fotosParaEnviar.forEach((archivo) => {
+    // Filtrar archivos válidos (no undefined)
+    const archivosValidos = fotosParaEnviar.filter(archivo => archivo && archivo instanceof File);
+    
+    if (archivosValidos.length > 0) {
+      archivosValidos.forEach((archivo) => {
         // 'imagenes' debe ser el mismo nombre que espera upload.array('imagenes', 3)
         formData.append('imagenes', archivo);
       });

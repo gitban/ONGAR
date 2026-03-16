@@ -7,45 +7,45 @@ const Adopcion = sequelize.define(
     id_adopcion: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoincrement: true,
-      alowNull: false,
+      autoIncrement: true,
+      allowNull: false,
     },
      id_animal: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
-      autoincrement: true,
-      alowNull: false,
+      allowNull: false,
     },
     nombre_apellido: {
       type: DataTypes.STRING(150),
-      alowNull: false 
+      allowNull: false 
     },
     email: { 
       type: DataTypes.STRING(150),
-      alowNull: false 
+      allowNull: false 
     },
     direccion: { 
       type: DataTypes.STRING(150),
-      alowNull: false 
+      allowNull: false 
     },
     telefono: { 
       type: DataTypes.BIGINT,
-      alowNull: false 
+      allowNull: false 
     },
     mensaje: {
        type: DataTypes.TEXT,
-       alowNull: false, 
+       allowNull: false, 
     },
     estado: {
-      type: DataTypes.STRING(20)
+      type: DataTypes.STRING(20),
+      allowNull: true
     },
     fecha_envio: { 
-      type: DataTypes.TIME,
-      alowNull: false 
+      type: DataTypes.DATETIME,
+      allowNull: false,
+      defaultValue: DataTypes.NOW
     },
     observaciones: {
       type: DataTypes.TEXT,
-      alowNull: false 
+      allowNull: true
     },
   },
   {

@@ -94,15 +94,30 @@ const ModificarHistoria = () => {
     formData.append("titulo", datos.titulo);
     formData.append("contenido", datos.contenido);
 
+    // Separar archivos nuevos de rutas viejas
+    const imagenesNuevas = [];
+    const imagenesViejas = [];
+
     fotosParaEnviar.forEach((img) => {
       if (img instanceof File) {
-        // ✅ ES UNA FOTO NUEVA: La enviamos como archivo
-        formData.append('imagenes', img);
-      } else if (typeof img === 'string' && !img.startsWith('blob:')) {
-        // ✅ ES UNA FOTO VIEJA: Enviamos solo la ruta para que el backend sepa que se queda
-        formData.append('imagenesExistentes', img);
+        // ✅ ES UNA FOTO NUEVA: Guardar para enviar después
+        imagenesNuevas.push(img);
+      } else if (typeof img === 'string' && img && !img.startsWith('blob:')) {
+        // ✅ ES UNA FOTO VIEJA: Guardar la ruta
+        imagenesViejas.push(img);
       }
     });
+
+    // Enviar imagenes nuevas
+    imagenesNuevas.forEach((archivo) => {
+      formData.append('imagenes', archivo);
+    });
+
+    // Enviar imagenes existentes como JSON string para evitar problemas con FormData
+    if (imagenesViejas.length > 0) {
+      formData.append('imagenesExistentes', JSON.stringify(imagenesViejas));
+    }
+
     try {
       // URL del backend en producción
       const url_fetch = "/api/historias/" + datos.id;

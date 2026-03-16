@@ -7,20 +7,20 @@ const Historia = sequelize.define(
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      autoincrement: true,
-      alowNull: false,
+      autoIncrement: true,
+      allowNull: false,
     },
     titulo: {
       type: DataTypes.STRING(255),
-      alowNull: false 
+      allowNull: false 
     },
     contenido: { 
       type: DataTypes.TEXT,
-      alowNull: false 
+      allowNull: false 
     },
     imagenes: {
        type: DataTypes.JSON,
-       alowNull: true,
+       allowNull: true,
        get() {
          const rawValue = this.getDataValue('imagenes');
          // Si hay datos, los convertimos de String a Array, si no, devolvemos array vacío
@@ -32,7 +32,9 @@ const Historia = sequelize.define(
        }
     },
     fecha_publicacion: {
-      type: DataTypes.TIME
+      type: DataTypes.DATETIME,
+      allowNull: true,
+      defaultValue: DataTypes.NOW
     },
   },
   {
