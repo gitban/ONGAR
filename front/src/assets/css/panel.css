@@ -369,7 +369,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: -10px;
+  text-align: center;
 }
 
 .image-upload-box-single:hover {

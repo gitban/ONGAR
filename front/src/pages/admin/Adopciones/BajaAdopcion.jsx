@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import '../../../assets/css/panel.css';
+import { ENDPOINTS } from '../../../../config';
 
 const BajaAdopcion = () => {
   const [animalSeleccionado, setAnimalSeleccionado] = useState('');
-
+  const navigate = useNavigate(); // Inicializamos la función de navegación
   // Estados para datos del adoptante
   const [datosAdoptante, setDatosAdoptante] = useState({
     nombre_apellido: "",
@@ -29,7 +30,7 @@ const BajaAdopcion = () => {
   useEffect(() => {
     // Pedimos la lista al backend
     console.log("Pidiendo datos al servidor...");
-    fetch("/api/animales")
+    fetch(ENDPOINTS.ADOPCIONES)
       .then((res) => res.json())
       .then((data) => setAnimales(data))
       .catch((err) => console.error("Error al recuperar lista:", err));
@@ -43,7 +44,7 @@ const BajaAdopcion = () => {
     //Obtener listado de solicitudes de adopcion
     // Pedimos la lista al backend
     console.log("Pidiendo datos al servidor...");
-    fetch(`/api/adopciones?id_animal=${seleccion.id}`)
+    fetch(`${ENDPOINTS.SOLICITUDES}?id_animal=${seleccion.id}`)
       .then((res) => res.json())
       .then((data) => setAdopciones(data))
       .catch((err) => console.error("Error al recuperar lista:", err));
@@ -74,7 +75,7 @@ const BajaAdopcion = () => {
     setStatus({ loading: true, msg: "Enviando...", error: false });
 
     try {
-      const response = await fetch(`/api/animales/${animalSeleccionado.id}/estado`, {
+      const response = await fetch(`${ENDPOINTS.ADOPCIONES}/${animalSeleccionado.id}/estado`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
@@ -91,6 +92,8 @@ const BajaAdopcion = () => {
           msg: "¡Mensaje enviado con éxito! ✅",
           error: false,
         });
+       // Redireccionamos al panel de control
+      navigate('/admin/adopciones');
       } else {
         if (response.status === 401 || response.status === 403) {
           localStorage.removeItem("token");

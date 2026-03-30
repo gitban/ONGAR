@@ -1,24 +1,26 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { noticiasService } from '../services/noticiasService';
+import { API_BASE_URL } from '../../config';
 
 const NoticiasLista = () => {
+
   const [datos, setDatos] = useState([]);
   const [cargando, setCargando] = useState(true);
 
   useEffect(() => {
     // Usamos una función asíncrona interna
     const obtenerDatos = async () => {
-      try {
-        const respuesta = await fetch('/api/noticias');
-        const resultado = await respuesta.json();
-        setDatos(resultado);
-      } catch (error) {
-        console.error("Error cargando API:", error);
-      } finally {
-        setCargando(false);
-      }
-    };
-
+          try {
+            //PRODUCCION
+            const respuesta = await noticiasService.getAll();
+            setDatos(respuesta);
+          } catch (error) {
+            console.error("Error cargando API:", error);
+          } finally {
+            setCargando(false);
+          }
+        };
     obtenerDatos();
   }, []); // El array vacío [] asegura que solo se ejecute al cargar el componente
 
@@ -35,7 +37,7 @@ const NoticiasLista = () => {
           {datos.map(item => (
             <article className="card-noticia">
               <div className="card-img-container">
-                <img src={`/Imágenes/Noticias/${item.imagen}.png`} alt={item.foto} />
+                <img src={`${API_BASE_URL}${item.imagen}`} alt={item.foto} />
               </div>
               <h3>{item.titulo}</h3>
               <Link to={`/noticias/${item.id}`} state={{ item: item, datos: datos }} className="btn-conoce">Leer más</Link>

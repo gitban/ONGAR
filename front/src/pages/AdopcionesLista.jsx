@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import { adopcionesService } from '../services/adopcionesService';
+import { API_BASE_URL } from '../../config';
 
 const AdopcionesLista = () => {
-
+  
   const [datos, setDatos] = useState([]);
   const [cargando, setCargando] = useState(true);
 
@@ -11,22 +13,18 @@ const AdopcionesLista = () => {
     const obtenerDatos = async () => {
       try {
         //PRODUCCION
-        const respuesta = await fetch('/api/animales');
-        const resultado = await respuesta.json();
-        setDatos(resultado);
-        console.log(resultado);
+        const respuesta = await adopcionesService.getAll();
+        setDatos(respuesta);
       } catch (error) {
         console.error("Error cargando API:", error);
       } finally {
         setCargando(false);
       }
     };
-
     obtenerDatos();
   }, []); // El array vacío [] asegura que solo se ejecute al cargar el componente
 
   if (cargando) return <p>Cargando datos...</p>;
-
 
   return (
     <>
@@ -54,14 +52,14 @@ const AdopcionesLista = () => {
         <div className="grid-adopcion">
 
           {datos.map(item => (
+            (item.adoptado==0)?
             <article className="card-adopcion">
               <div className="card-img-container">
-                {console.log(item)}
-                <img src={`${item.foto[0]}`} alt={item.foto[0]} />
+                <img src={`${API_BASE_URL}${item.foto[0]}`} alt={item.foto[0]} />
               </div>
               <h3>{item.nombre}</h3>
               <Link to={`/adopciones/detalle/${item.nombre.toLowerCase()}`} state={item} className="btn-conoce">Conocé mi historia</Link>
-            </article>
+            </article>:''
           ))}
 
         </div>

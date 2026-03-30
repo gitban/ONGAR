@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../../../assets/css/panel.css";
+import { API_BASE_URL, ENDPOINTS } from "../../../../config";
 
 const ModificarAdopcion = () => {
 
@@ -25,7 +26,7 @@ const ModificarAdopcion = () => {
     } else {
       // Si recargó la página (F5), pedimos la lista al backend
       console.log("Recarga detectada, pidiendo datos al servidor...");
-      fetch("/api/animales")
+      fetch(ENDPOINTS.ADOPCIONES)
         .then((res) => res.json())
         .then((data) => setAnimales(data))
         .catch((err) => console.error("Error al recuperar lista:", err));
@@ -121,7 +122,7 @@ const ModificarAdopcion = () => {
     });
     try {
       // URL del backend en producción
-      const url_fetch = "/api/animales/" + datos.id;
+      const url_fetch = ENDPOINTS.ADOPCIONES+'/' + datos.id;
       const response = await fetch(url_fetch, {
         method: "PUT",
         headers: { 'Authorization': `Bearer ${token}` },
@@ -301,7 +302,7 @@ const ModificarAdopcion = () => {
                             (typeof imagenes[index] === 'string' && imagenes[index].startsWith('blob:')) ? (
                               <img src={imagenes[index]} alt="Preview" className="preview-img" />
                             ) : (
-                              <img src={`${imagenes[index]}`} alt="Preview" className="preview-img" />
+                              <img src={`${API_BASE_URL+imagenes[index]}`} alt="Preview" className="preview-img" />
                             )) : (
                             <span className="placeholder-text">Imagen {index + 1}</span>
                           )}

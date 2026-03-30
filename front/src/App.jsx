@@ -1,6 +1,5 @@
 import { Routes, Route, useLocation, BrowserRouter } from 'react-router-dom';
 import ProtectedRoute from './pages/Auth/ProtectedRoutes';
-import { AuthProvider } from './pages/Auth/AuthContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
 
@@ -22,6 +21,7 @@ import MenuAdopciones from './pages/admin/adopciones/MenuAdopciones';
 import AltaAdopcion from './pages/admin/Adopciones/AltaAdopcion';
 import ModificarAdopcion from './pages/admin/Adopciones/ModificarAdopcion';
 import BajaAdopcion from './pages/admin/Adopciones/BajaAdopcion';
+import ListadoAdopciones from './pages/admin/Adopciones/ListadoAdopciones';
 
 import MenuNoticias from './pages/admin/Noticias/MenuNoticias';
 import AltaNoticia from './pages/admin/Noticias/AltaNoticia';
@@ -34,6 +34,7 @@ import ModificarHistoria from './pages/admin/Historias/ModificarHistoria';
 import BajaHistoria from './pages/admin/Historias/BajaHistoria';
 
 import CambiarContrasenia from './pages/admin/Contrasenia/CambiarContrasenia';
+import ListaAnimales from './pages/admin/Adopciones/ListadoAdopciones';
 
 function App() {
   const location = useLocation();
@@ -49,6 +50,7 @@ function App() {
     location.pathname === '/admin/noticias/alta' ||
     location.pathname === '/admin/noticias/modificar' ||
     location.pathname === '/admin/noticias/baja' ||
+    location.pathname === '/admin/noticias/listado' ||
     location.pathname === '/admin/historias' ||
     location.pathname === '/admin/historias/alta' ||
     location.pathname === '/admin/historias/modificar' ||
@@ -59,9 +61,7 @@ function App() {
     <>
       {/* Solo mostrar el Header si NO se está en login o panel admin */}
       {!isHiddenPage && <Header />}
-
       <main>
-        <AuthProvider>
           <Routes>
             <Route path="/" element={<Inicio />} />
             <Route path="/contacto" element={<Contacto />} />
@@ -88,6 +88,7 @@ function App() {
               <Route path="/admin/adopciones/alta" element={<AltaAdopcion />} />
               <Route path="/admin/adopciones/modificar" element={<ModificarAdopcion />} />
               <Route path="/admin/adopciones/baja" element={<BajaAdopcion />} />
+              <Route path="/admin/adopciones/listado" element={<ListadoAdopciones />} />
               <Route path="/admin/noticias" element={<MenuNoticias />} />
               <Route path="/admin/noticias/alta" element={<AltaNoticia />} />
               <Route path="/admin/noticias/modificar" element={<ModificarNoticia />} />
@@ -99,9 +100,7 @@ function App() {
               <Route path="/admin/cambiarcontrasenia" element={<CambiarContrasenia />} />
             </Route>
           </Routes>
-        </AuthProvider>
       </main>
-
       {/* Solo mostrar el Footer si NO se está en login */}
       {!isHiddenPage && <Footer />}
     </>

@@ -45,7 +45,7 @@ const Adopcion = sequelize.define(
       set(val) {
         // Al guardar, convertimos el Array a String automáticamente
         this.setDataValue('foto', JSON.stringify(val));
-      }
+      } 
     },
     fecha_ingreso: {
       type: DataTypes.TIME,

@@ -39,7 +39,7 @@ const Adopcion = sequelize.define(
       allowNull: true
     },
     fecha_envio: { 
-      type: DataTypes.DATETIME,
+      type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW
     },

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../../assets/css/panel.css';
+import { API_BASE_URL } from '../../../../config';
 
 const AltaHistoria = () => {
   //token almacenado en el LocalStorage durante el login
@@ -71,7 +72,7 @@ const AltaHistoria = () => {
     }
     try {
       // URL del backend en producción
-      const response = await fetch('/api/historias', {
+      const response = await fetch(`${API_BASE_URL}/api/historias`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: formData,

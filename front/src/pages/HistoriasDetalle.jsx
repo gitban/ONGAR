@@ -1,25 +1,14 @@
 import { useParams, Link, useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react'; // IMPORTAR useEffect
+import { useEffect} from 'react'; // IMPORTAR useEffect
+import { API_BASE_URL } from '../../config';
 
 const HistoriasDetalle = () => {
 
   const location = useLocation();
   const datos = location.state;
-  const [imagenes, setImagenes] = useState([]);
-
-  useEffect(() => {
-    // Busca todos los archivos .png, .jpg, .jpeg o .svg en la carpeta de imagenes
-    const archivos = import.meta.glob('/Public/Imágenes/Historias/*.{png,jpg,jpeg,svg}', { eager: true });
-
-    // Convertimos el objeto en un array de rutas
-    const rutas = Object.keys(archivos)
-      .filter((ruta) => ruta.includes(`${datos.imagenes}`))
-      .map((ruta) => archivos[ruta].default);
-    setImagenes(rutas);
-  }, []);
+  const imagenes = datos.imagenes;
 
   const { id } = useParams();
-  console.log(datos)
 
   useEffect(() => { window.scrollTo(0, 0); }, [id]); // Scroll arriba
 
@@ -43,12 +32,9 @@ const HistoriasDetalle = () => {
             <div className="historias-cuerpo-texto" dangerouslySetInnerHTML={{ __html: datos.contenido }} />
 
             <div className="historias-gallery-grid">
-              {/*  {datos.datos.map((img, i) => (
-                <div key={i} className="historias-img-item"><img src={img} alt={`Foto ${i}`} /></div>
-              ))} */}
               {imagenes.map((src, index) => (
                 <div key={index} className="gallery-img-container">
-                  <img src={src} alt={`Imagen ${index}`} />
+                  <img src={API_BASE_URL + src} alt={`Imagen ${index}`} />
                 </div>
               ))}
             </div>

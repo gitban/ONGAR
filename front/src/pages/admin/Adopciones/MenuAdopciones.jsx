@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import '../../../assets/css/panel.css';
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../../../../config';
 
 const MenuAdopciones = () => {
 
@@ -12,11 +13,11 @@ const MenuAdopciones = () => {
     const obtenerDatos = async () => {
       try {
         //PRODUCCION
-        const respuesta = await fetch('/api/animales');
+        const respuesta = await fetch(`${API_BASE_URL}/api/animales`);
         const resultado = await respuesta.json();
         setDatos(resultado);
       } catch (error) {
-        console.error("Error cargando API:", error);
+        console.error("Error cargando API:"+ error);
       } finally {
         setCargando(false);
       }
@@ -50,6 +51,11 @@ const MenuAdopciones = () => {
           {/* Tarjeta 3: Baja */}
           <Link to="/admin/adopciones/baja" state={{ datos: datos }} className="panel-card">
             <span className="panel-card-text">Entregar <br /> en adopción</span>
+          </Link>
+          
+          {/* Tarjeta 4: Listado */}
+          <Link to="/admin/adopciones/listado" state={{ datos: datos }} className="panel-card">
+            <span className="panel-card-text">Listado  <br /> de animales</span>
           </Link>
 
           {/* Tarjeta Extra: Volver al Panel Principal */}

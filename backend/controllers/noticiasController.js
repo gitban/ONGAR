@@ -20,14 +20,13 @@ const crearnoticia = async (req, res) => {
 
     // Verificamos si llegó imagen
     if (archivo) {
-      datos.foto = `/imagenes/${archivo.filename}`;
+      datos.imagen = `/imagenes/${archivo.filename}`;
     }
 
-    console.log(datos, "Datoss")
     const nuevaNoticia = await Noticia.create(datos);
-
+    
     res.status(201).json(nuevaNoticia);
-
+    
   } catch (error) {
     console.error("Error al crear la noticia:", error);
     res.status(500).json({ error: "Error al crear la noticia" });
@@ -51,20 +50,44 @@ const obtenernoticia = async (req, res) => {
 
 // Controlador para actualizar una noticia por su ID
 const actualizarnoticia = async (req, res) => {
-  const noticiaId = req.params.id;
-  const Nombre_noticia = req.body;
+const { id } = req.params;
+  
+  // Si multer está configurado con .single('foto'), el archivo estará en req.file
+  const archivoNuevo = req.file; 
+  const fotoVieja = req.body.fotoExistente;
+
   try {
-    const noticia = await Noticia.findByPk(noticiaId);
+    const noticia = await Noticia.findByPk(id);
     if (!noticia) {
-      return res.status(404).json({ error: "Noticia no encontrada" });
+      return res.status(404).json({ message: "Noticia no encontrada" });
     }
-    
-    await noticia.update(Nombre_noticia)
-    
-    res.json(noticia);
+
+    // LÓGICA DE LA FOTO:
+    // 1. Si hay un archivo nuevo, usamos esa ruta.
+    // 2. Si no hay archivo nuevo, usamos la foto que ya tenía (enviada desde el front).
+    // 3. Si no hay ninguna de las dos, podrías dejarla vacía o mantener la de la DB.
+    let fotoFinal = noticia.foto; // Valor por defecto: lo que ya hay en la DB
+
+    if (archivoNuevo) {
+      fotoFinal = `/imagenes/${archivoNuevo.filename}`;
+      
+      // OPCIONAL: Borrar el archivo físico de la foto vieja del servidor para no acumular basura
+      // if (noticia.foto) { fs.unlinkSync(path.join(__dirname, '../../public', noticia.foto)); }
+    } else if (fotoVieja) {
+      fotoFinal = fotoVieja;
+    }
+console.log(fotoFinal)
+    // Actualizamos el objeto con los datos de req.body y la foto elegida
+    await noticia.update({
+      ...req.body,
+      imagen: fotoFinal
+    });
+
+    res.json({ message: "Noticia actualizada", noticia });
+
   } catch (error) {
-    console.error("Error al actualizar la noticia:", error);
-    res.status(500).json({ error: "Error al actualizar la noticia" });
+    console.error(error);
+    res.status(500).json({ message: "Error al actualizar" });
   }
 };
 

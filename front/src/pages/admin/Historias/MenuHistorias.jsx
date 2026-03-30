@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import '../../../assets/css/panel.css';
 import { useState, useEffect } from 'react';
+import { API_BASE_URL } from '../../../../config';
 
 const MenuHistorias = () => {
 
@@ -12,7 +13,7 @@ const MenuHistorias = () => {
     const obtenerDatos = async () => {
       try {
         //PRODUCCION
-        const respuesta = await fetch('/api/historias');
+        const respuesta = await fetch(`${API_BASE_URL}/api/historias`);
         const resultado = await respuesta.json();
         setDatos(resultado);
       } catch (error) {
@@ -24,7 +25,7 @@ const MenuHistorias = () => {
 
     obtenerDatos();
   }, []); // El array vacío [] asegura que solo se ejecute al cargar el componente
-
+  console.log(datos)
   if (cargando) return <p>Cargando datos...</p>;
 
   return (

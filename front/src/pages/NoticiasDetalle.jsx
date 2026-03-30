@@ -1,22 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useParams, Link, useLocation } from 'react-router-dom';
+import { API_BASE_URL } from '../../config';
 
 const NoticiaDetalle = () => {
 
   const location = useLocation();
   const datos = location.state;
-  const [imagenes, setImagenes] = useState([]);
-
-  useEffect(() => {
-    // Busca todos los archivos .png, .jpg, .jpeg o .svg en la carpeta de imagenes
-    const archivos = import.meta.glob('/Public/Imágenes/Noticias/*.{png,jpg,jpeg,svg}', { eager: true });
-
-    // Convertimos el objeto en un array de rutas
-    const rutas = Object.keys(archivos)
-      .filter((ruta) => ruta.includes(`${datos.imagenes}`))
-      .map((ruta) => archivos[ruta].default);
-    setImagenes(rutas);
-  }, []);
 
   const { id } = useParams();
 
@@ -27,10 +16,7 @@ const NoticiaDetalle = () => {
     if (location.state?.datos) {
       console.log("Datos actualizados:", datos);
     }
-    // Aquí ponés tu lógica para refrescar la pantalla o llamar a la API
-    if (datos) {
-      // cargarNuevosDatos(user.id);
-    }
+  
   }, [location]); // <--- LA CLAVE: Agregar location aquí
 
   if (!datos) return <div>Noticia no encontrada</div>;
@@ -48,7 +34,7 @@ const NoticiaDetalle = () => {
           {/* CONTENIDO IZQUIERDA */}
           <article className="noticia-principal-content">
             <div className="detalle-img-full">
-              <img src={`/Imágenes/Noticias/${datos.item.imagen}.png`} alt={datos.item.imagen} />
+              <img src={`${API_BASE_URL}${datos.item.imagen}`} alt={datos.item.imagen} />
             </div>
             <div className="noticia-header-block">
               <h2>{datos.item.titulo}</h2>
@@ -69,12 +55,13 @@ const NoticiaDetalle = () => {
                 // No mostramos la noticia actual en el sidebar
                 const item = datos.datos[key];
                 if (key == datos.item.id - 1) {
+                  console.log(key)
                   return null;
                 } else {
                   return (
                     <Link to={`/noticias/${item.id}`} state={{ item: item, datos: datos.datos }} className="card-reciente-link">
                       <article className="card-reciente">
-                        <div className="reciente-img"><img src={`/Imágenes/Noticias/${item.imagen}.png`} alt="Miniatura" /></div>
+                        <div className="reciente-img"><img src={`${API_BASE_URL}${item.imagen}`} alt="Miniatura" /></div>
                         <div className="reciente-info">
                           <h4>{item.titulo}</h4>
                           <span className="leer-mas-small">Leer más &rarr;</span>

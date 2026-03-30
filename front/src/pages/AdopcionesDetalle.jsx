@@ -1,5 +1,6 @@
 import { useEffect } from 'react'; // IMPORTAR useEffect
 import { useParams, Link, useLocation } from 'react-router-dom';
+import { API_BASE_URL } from '../../config';
 
 const AdopcionDetalle = () => {
   const location = useLocation();
@@ -34,7 +35,7 @@ const AdopcionDetalle = () => {
         <div className="animal-gallery-grid">
           {imagenes.map((src, index) => (
             <div key={index} className="gallery-img-container">
-              <img src={src} alt={`Imagen ${index}`} />
+              <img src={`${API_BASE_URL}${src}`} alt={`Imagen ${index}`} />
             </div>
           ))}
         </div>

@@ -1,5 +1,6 @@
 import { useLocation } from 'react-router-dom';
 import { useState } from "react";
+import { API_BASE_URL } from '../../config';
 
 const AdopcionForm = () => {
 
@@ -17,7 +18,7 @@ const AdopcionForm = () => {
     mensaje: ''
   });
 
-  const url_img = URL_BACKEND+datos.foto[0];
+  const url_img = API_BASE_URL+datos.foto[0];
 
   console.log(formData)
 

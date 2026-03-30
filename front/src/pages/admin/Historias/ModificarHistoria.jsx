@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "../../../assets/css/panel.css";
+import { API_BASE_URL } from "../../../../config";
+import { ENDPOINTS } from "../../../../config";
 
 const ModificarHistoria = () => {
 
@@ -12,14 +14,14 @@ const ModificarHistoria = () => {
 
   //Obtener listado de historias para modificar
   useEffect(() => {
-    if (location.state && location.state.historias) {
+    if (location.state && location.state.historia) {
       // Si los datos vienen por navegación, los usamos (0 peticiones extras)
       console.log("Cargando desde location.state");
-      setHistorias(location.state.historias);
+      setHistorias(location.state.animales);
     } else {
       // Si recargó la página (F5), pedimos la lista al backend
       console.log("Recarga detectada, pidiendo datos al servidor...");
-      fetch("/api/historias")
+      fetch(ENDPOINTS.HISTORIAS)
         .then((res) => res.json())
         .then((data) => setHistorias(data))
         .catch((err) => console.error("Error al recuperar lista:", err));
@@ -27,18 +29,16 @@ const ModificarHistoria = () => {
   }, [location.state]);
 
   // Estado para el selector
+
   const [imagenes, setImagenes] = useState([null, null, null]);
 
-  // Carga de datos al seleccionar una historia
+  // Carga de datos al seleccionar un animal
   const handleSelectChange = (e) => {
-    const seleccion = historias.find((historia) => historia.id == e.target.value);
-    if (seleccion) {
-      setImagenes(seleccion.imagenes || [null, null, null]);
-      setFotosParaEnviar(seleccion.imagenes || []);
-      setDatos(seleccion);
-    }
+    const seleccion = historias.find((animal) => animal.id == e.target.value);
+    setImagenes(seleccion.imagenes);
+    setFotosParaEnviar(seleccion.imagenes);
+    setDatos(seleccion);
   };
-
   // Aquí guardamos archivos reales
   const [fotosParaEnviar, setFotosParaEnviar] = useState([]);
 
@@ -94,33 +94,19 @@ const ModificarHistoria = () => {
     formData.append("titulo", datos.titulo);
     formData.append("contenido", datos.contenido);
 
-    // Separar archivos nuevos de rutas viejas
-    const imagenesNuevas = [];
-    const imagenesViejas = [];
-
     fotosParaEnviar.forEach((img) => {
       if (img instanceof File) {
-        // ✅ ES UNA FOTO NUEVA: Guardar para enviar después
-        imagenesNuevas.push(img);
-      } else if (typeof img === 'string' && img && !img.startsWith('blob:')) {
-        // ✅ ES UNA FOTO VIEJA: Guardar la ruta
-        imagenesViejas.push(img);
+        // ✅ ES UNA FOTO NUEVA: La enviamos como archivo
+        formData.append('imagenes', img);
+      } else if (typeof img === 'string' && !img.startsWith('blob:')) {
+        // ✅ ES UNA FOTO VIEJA: Enviamos solo la ruta para que el backend sepa que se queda
+        formData.append('fotosExistentes', img);
       }
     });
 
-    // Enviar imagenes nuevas
-    imagenesNuevas.forEach((archivo) => {
-      formData.append('imagenes', archivo);
-    });
-
-    // Enviar imagenes existentes como JSON string para evitar problemas con FormData
-    if (imagenesViejas.length > 0) {
-      formData.append('imagenesExistentes', JSON.stringify(imagenesViejas));
-    }
-
     try {
       // URL del backend en producción
-      const url_fetch = "/api/historias/" + datos.id;
+      const url_fetch = `${API_BASE_URL}/api/historias/` + datos.id;
       const response = await fetch(url_fetch, {
         method: "PUT",
         headers: { 'Authorization': `Bearer ${token}` },
@@ -139,8 +125,9 @@ const ModificarHistoria = () => {
           titulo: "",
           contenido: "",
         });
-        setImagenes([null, null, null]);
-        setFotosParaEnviar([]);
+        setImagenes('');
+        alert("¡Historia actualizada con éxito! ✅")
+        window.location.href = "/admin/historias";
 
         // Limpiar formulario
       } else {
@@ -229,8 +216,11 @@ const ModificarHistoria = () => {
                         />
                         <label htmlFor={`file-${index}`} className="upload-label">
                           {imagenes[index] ? (
-                            <img src={imagenes[index]} alt="Preview" className="preview-img" />
-                          ) : (
+                            (typeof imagenes[index] === 'string' && imagenes[index].startsWith('blob:')) ? (
+                              <img src={imagenes[index]} alt="Preview" className="preview-img" />
+                            ) : (
+                              <img src={`${API_BASE_URL + imagenes[index]}`} alt="Preview" className="preview-img" />
+                            )) : (
                             <span className="placeholder-text">Imagen {index + 1}</span>
                           )}
                         </label>

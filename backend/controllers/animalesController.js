@@ -4,7 +4,7 @@ const { Adopcion } = require('../database/associations');
 // Controlador para listar todos los animales en adopcion
 const listaranimales = async (req, res) => {
   try {
-    const animales = await Animal.findAll({ where: { adoptado: 0 } });
+    const animales = await Animal.findAll();
     if (!animales || animales.length === 0) {
       return res.status(200).json([]); // Devolvemos array vacío si no hay nada
     }
@@ -58,12 +58,11 @@ const actualizaranimal = async (req, res) => {
   const { id } = req.params;
   const datosActualizados = req.body;
   const archivos = req.files;
-
   const fotosViejas = req.body.fotosExistentes
     ? (Array.isArray(req.body.fotosExistentes) ? req.body.fotosExistentes : [req.body.fotosExistentes])
     : [];
 
-  const fotosNuevas = req.files.map(f => `/imagenes/${f.filename}`);
+  const fotosNuevas = archivos.map(f => `/imagenes/${f.filename}`);
 
   // El resultado final es la suma de ambos
   const totalFotos = [...fotosViejas, ...fotosNuevas];

@@ -35,7 +35,6 @@ const crearhistoria = async (req, res) => {
     if (!datosHistoria.fecha_publicacion) {
       datosHistoria.fecha_publicacion = new Date();
     }
-
     const nuevaHistoria = await Historia.create(datosHistoria);
 
     res.status(201).json({
@@ -71,79 +70,35 @@ const obtenerhistoria = async (req, res) => {
 // Controlador para actualizar una historia por su ID
 const actualizarhistoria = async (req, res) => {
   const { id } = req.params;
-  
+  const datosActualizados = req.body;
+  const archivos = req.files;
+  const fotosViejas = req.body.fotosExistentes
+    ? (Array.isArray(req.body.fotosExistentes) ? req.body.fotosExistentes : [req.body.fotosExistentes])
+    : [];
+
+  const fotosNuevas = archivos.map(f => `/imagenes/${f.filename}`);
+
+  // El resultado final es la suma de ambos
+  const totalFotos = [...fotosViejas, ...fotosNuevas];
+
+  datosActualizados.imagenes = totalFotos
+
   try {
-    // Validar que el ID sea válido
-    if (!id) {
-      return res.status(400).json({ error: "ID de historia requerido" });
-    }
-
-    // Validar que la historia exista
-    const historiaExistente = await Historia.findByPk(id);
-    if (!historiaExistente) {
-      return res.status(404).json({ error: "Historia no encontrada" });
-    }
-
-    const datosActualizados = req.body;
-    const archivos = req.files;
-
-    // Procesar imágenes existentes
-    let imagenesViejas = [];
-    
-    // Manejar imagenesExistentes - puede venir como JSON string desde FormData
-    if (req.body.imagenesExistentes) {
-      try {
-        // Intentar parsear como JSON (si viene como string desde FormData)
-        if (typeof req.body.imagenesExistentes === 'string') {
-          const parsed = JSON.parse(req.body.imagenesExistentes);
-          imagenesViejas = Array.isArray(parsed) ? parsed : [parsed];
-        } else if (Array.isArray(req.body.imagenesExistentes)) {
-          imagenesViejas = req.body.imagenesExistentes;
-        } else if (typeof req.body.imagenesExistentes === 'string') {
-          imagenesViejas = [req.body.imagenesExistentes];
-        }
-      } catch (parseError) {
-        // Si no puede parsearse como JSON, tratar como string simple
-        imagenesViejas = [req.body.imagenesExistentes];
-      }
-      
-      // Filtrar imágenes vacías
-      imagenesViejas = imagenesViejas.filter(img => img && String(img).trim() !== '');
-    }
-
-    // Procesar imágenes nuevas
-    const imagenesNuevas = archivos && archivos.length > 0 
-      ? archivos.map(f => `/imagenes/${f.filename}`) 
-      : [];
-
-    // Combinar imágenes: viejas + nuevas
-    const totalImagenes = [...imagenesViejas, ...imagenesNuevas];
-
-    // Actualizar datos
-    datosActualizados.imagenes = totalImagenes.length > 0 ? totalImagenes : [];
-
-    // Eliminar la propiedad imagenesExistentes del objeto a actualizar
-    delete datosActualizados.imagenesExistentes;
-
-    // Actualizar la historia
+    // IMPORTANTE: El segundo argumento es { where: { id: id } }
     const [rowsUpdated] = await Historia.update(datosActualizados, {
       where: { id: id },
     });
 
     if (rowsUpdated === 0) {
-      return res.status(404).json({ message: "No se encontró la historia o no hay cambios" });
+      return res
+        .status(404)
+        .json({ message: "No se encontró la historia o no hay cambios" });
     }
 
-    // Obtener la historia actualizada para devolver al cliente
-    const historiaActualizada = await Historia.findByPk(id);
-    
-    res.json({ 
-      message: "Historia actualizada con éxito",
-      data: historiaActualizada 
-    });
+    res.json({ message: "Actualizado con éxito" });
   } catch (error) {
-    console.error("Error al actualizar historia:", error);
-    res.status(500).json({ error: "Error interno del servidor", message: error.message });
+    console.error("Error al actualizar:", error);
+    res.status(500).json({ message: "Error interno" });
   }
 };
 

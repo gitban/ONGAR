@@ -19,20 +19,20 @@ const Historia = sequelize.define(
       allowNull: false 
     },
     imagenes: {
-       type: DataTypes.JSON,
-       allowNull: true,
-       get() {
-         const rawValue = this.getDataValue('imagenes');
-         // Si hay datos, los convertimos de String a Array, si no, devolvemos array vacío
-         return rawValue ? JSON.parse(rawValue) : [];
-       },
-       set(val) {
-         // Al guardar, convertimos el Array a String automáticamente
-         this.setDataValue('imagenes', JSON.stringify(val));
-       }
+      type: DataTypes.TEXT,
+      alowNull: false,
+      get() {
+        const rawValue = this.getDataValue('imagenes');
+        // Si hay datos, los convertimos de String a Array, si no, devolvemos array vacío
+        return rawValue ? JSON.parse(rawValue) : [];
+      },
+      set(val) {
+        // Al guardar, convertimos el Array a String automáticamente
+        this.setDataValue('imagenes', JSON.stringify(val));
+      } 
     },
     fecha_publicacion: {
-      type: DataTypes.DATETIME,
+      type: DataTypes.DATE,
       allowNull: true,
       defaultValue: DataTypes.NOW
     },

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../../../assets/css/panel.css';
+import  { ENDPOINTS, API_BASE_URL } from '../../../../config';
 
 const AltaAdopcion = () => {
 
@@ -85,7 +86,7 @@ const AltaAdopcion = () => {
     }
     try {
       // URL del backend en producción
-      const response = await fetch('/api/animales', {
+      const response = await fetch(ENDPOINTS.ADOPCIONES, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
         body: formData,
